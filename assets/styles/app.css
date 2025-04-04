@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-space-900: #0a0a1a;
+    --color-space-800: #121230;
+    --color-neon-100: #e0f7fa;
+    --color-neon-200: #80deea;
+    --color-neon-300: #4dd0e1;
+    --color-neon-400: #26c6da;
+    --color-neon-500: #00bcd4;
+    --color-cyan-400: #00e5ff;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.2; }
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+/* Classes personnalisées */
+.bg-space-900 { background-color: var(--color-space-900); }
+.bg-space-800 { background-color: var(--color-space-800); }
+.text-neon-100 { color: var(--color-neon-100); }
+.text-neon-200 { color: var(--color-neon-200); }
+.text-neon-300 { color: var(--color-neon-300); }
+.text-neon-400 { color: var(--color-neon-400); }
+.text-neon-500 { color: var(--color-neon-500); }
+
+.font-orbitron { font-family: 'Orbitron', sans-serif; }
+.font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+
+.bg-grid-pattern {
+    background-image: 
+        linear-gradient(to right, var(--color-neon-400) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-neon-400) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+.bg-pulse-animation {
+    background: radial-gradient(circle, var(--color-neon-400) 0%, transparent 70%);
+    animation: pulse 4s infinite;
+}
+
+.animate-typing {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 3.5s steps(40, end);
+}
+
+/* Boutons */
+.btn-primary {
+    @apply relative inline-flex items-center px-6 py-3 border border-transparent text-lg font-medium rounded-md text-space-900 bg-neon-400 hover:bg-neon-300 transition-all duration-300 shadow-lg shadow-neon-400/30;
+}
+
+.btn-secondary {
+    @apply inline-flex items-center px-6 py-3 border border-neon-400 text-lg font-medium rounded-md text-neon-400 hover:bg-space-800 transition-all duration-300;
+}
+
+.btn-glow {
+    @apply absolute inset-0 rounded-md bg-neon-400 opacity-0 group-hover:opacity-20 blur-md transition-all duration-300;
+}
+
+/* Cartes de projet */
+.project-card {
+    @apply relative overflow-hidden rounded-lg shadow-xl transition-all duration-500 transform hover:-translate-y-2;
+}
+
+.project-image {
+    @apply relative overflow-hidden;
+}
+
+.project-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-space-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+}
+
+.project-content {
+    @apply absolute bottom-0 left-0 p-6 w-full transform translate-y-20 group-hover:translate-y-0 transition-transform duration-300;
+}
+
+/* Tags */
+.tag {
+    @apply inline-block px-3 py-1 text-xs font-semibold rounded-full bg-space-800 text-neon-300 border border-neon-500;
+}
+
+/* Compétences */
+.skill-item {
+    @apply flex flex-col items-center p-6 bg-space-900 rounded-lg border border-space-700 hover:border-neon-400 transition-all duration-300 transform hover:scale-105;
+}
+
+.skill-icon {
+    @apply p-3 rounded-full bg-space-800 border border-neon-500/30;
+}

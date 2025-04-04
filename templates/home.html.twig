@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil | Portfolio Futuriste{% endblock %}
+
+{% block body %}
+    {# Hero section avec animation #}
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-black/40 z-10"></div>
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover">
+            <source src="{{ asset('media/space-loop.mp4') }}" type="video/mp4">
+        </video>
+        
+        <div class="relative z-20 text-center px-4">
+            <h1 class="text-6xl md:text-8xl font-orbitron font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-400 to-cyan-400">
+                <span class="animate-typing">Emmanuel Rogue</span>
+            </h1>
+            <p class="text-xl md:text-2xl max-w-2xl mx-auto mb-8 text-neon-200">
+                Développeur Fullstack & Designer d'Interfaces Quantiques
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#projects" class="btn-primary">
+                    Explorer
+                    <span class="btn-glow"></span>
+                </a>
+                <a href="#contact" class="btn-secondary">
+                    Contact
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20 animate-bounce">
+            <svg class="w-10 h-10 text-neon-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    {# Section Projets #}
+    <section id="projects" class="py-20 px-4 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-orbitron font-bold mb-12 text-center text-neon-300">
+            <span class="inline-block border-b-2 border-neon-500 pb-2">Mes Projets</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in projects %}
+                <div class="project-card group">
+                    <div class="project-image">
+                        <img src="{{ asset('images/projects/' ~ project.image) }}" alt="{{ project.title }}" class="w-full h-64 object-cover">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="text-2xl font-bold mb-2 text-neon-200">{{ project.title }}</h3>
+                        <p class="text-neon-300 mb-4">{{ project.description }}</p>
+                        <div class="flex flex-wrap gap-2">
+                            {% for tag in project.tags %}
+                                <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    {# Section Compétences #}
+    <section class="py-20 bg-space-800 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-orbitron font-bold mb-12 text-center text-neon-300">
+                <span class="inline-block border-b-2 border-neon-500 pb-2">Compétences</span>
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                {% for skill in ['React', 'Symfony', 'AI', 'Quantum', 'UI/UX', '3D', 'Blockchain', 'AR/VR'] %}
+                    <div class="skill-item">
+                        <div class="skill-icon">
+                            <svg class="w-12 h-12 text-neon-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mt-4 text-center text-neon-200">{{ skill }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
