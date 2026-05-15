@@ -1,0 +1,869 @@
+html{
+  overflow-x:hidden;
+}
+
+.bloc0_entete{
+  display: flex;
+  flex-direction:row;
+  width: 100%;
+  height: 71px;
+ 
+}
+.bloc0menu{
+  font-size: x-large;
+  display: flex;
+  flex-direction: row;
+  margin-left: 20%;
+  }
+
+
+
+.espaceblc1 {
+margin-left: 18%;
+font-size: large;
+margin-top: 8%;
+  color: rgb(54, 52, 52); 
+  transition: color 0.3s; 
+}
+.espaceblc1:hover {
+  color: rgb(61, 168, 35); 
+}
+
+.imglogo{
+margin-left: 10%;
+}
+
+
+.bloc_sun{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 711px;
+}
+.bloc2_nature{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 711px;
+}
+.bloc3_money{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 711px;
+  background-color: rgb(255, 255, 255);
+}
+
+.bloc4_animals{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 711px;
+  background-color: rgb(255, 255, 255);
+}
+.bloc5_new{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 711px;
+}
+.bloc6_new {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 422px;
+  background-color: rgb(255, 255, 255);
+}
+.bloc7_new{
+  display: flex;
+  width: 100%;
+  height: 711px;
+  background-color: rgb(255, 255, 255);
+}
+.blocfinnnew{
+  display: flex;
+  width: 100%;
+  height: 711px;
+  background-color: rgb(132, 240, 8);
+}
+
+/* ////////////fin des bloc couleur /////////// */
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* ////////////BLOC 1 /////////// */
+
+.bloc_sun{
+background-image: url(femme.jpg);
+display: flex;
+position: relative;
+width: 100%;
+height: 500px;
+align-items: center;
+justify-content: center;
+}
+.conteneurblc1{
+  /*background-color: rgb(196, 152, 152);*/
+  display: flex;
+  position: relative;
+  width: 400px;
+  height: 300px;
+  flex-direction: column;
+}
+.texteapsun{
+/*background-color: blue;*/
+display: flex;
+position: relative;
+width: 100%;
+height: 80px;
+justify-content: end;
+
+}
+.phsun{
+  /*background-color: rgb(0, 217, 255);*/
+  color: azure;
+display: flex;
+position: relative;
+width: 100%;
+height: 150px;
+font-size: 150px;
+justify-content: end;
+}
+.Giveus{
+/*background-color: rgb(255, 0, 166);*/
+color: aliceblue;
+display: flex;
+position: relative;
+width: 100%;
+height: 80px;
+font-size: 20px;
+align-items: center;
+justify-content: center;
+}
+
+
+.image-container {
+    width: 100%;
+    height: 711px;
+    position: relative;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+  
+  }
+  
+
+  .image-foret {
+    position: relative;
+    display: inline-block;
+    top: 0%;
+    margin:0px;
+    padding: 0px;
+    /* Pour que le conteneur s'ajuste à la taille de l'image */
+  }
+
+  .p1{
+    font-family: 'Open Sans';
+    position: absolute;
+    top: 240px;
+    /* Ajustez la position verticale */
+    left: 600px;
+    /* Ajustez la position horizontale */
+    color: white;
+    /* Couleur du texte */
+    font-size: 40px;
+    /* Taille de police */
+   padding: 10px;
+    /* Espacement du texte par rapport au fond */
+  } 
+
+  h1{
+    font-family: 'Open Sans';
+    position: absolute;
+    font-size: 200px;
+    top: 300px;
+    /* Ajustez la position verticale */
+    left: 600px;
+    /* Ajustez la position horizontale */
+    color: rgb(255, 255, 255);
+    /* Couleur du texte */
+    font-size: 40px;
+    /* Taille de police */
+   padding: 10px;
+    /* Espacement du texte par rapport au fond */
+  } 
+
+  h3{
+    font-family: 'Open Sans';
+    position: absolute;
+    font-size: 200px;
+    top: 328px;
+    /* Ajustez la position verticale */
+    left: 800px;
+    /* Ajustez la position horizontale */
+    color: white;
+    /* Couleur du texte */
+    font-size: 40px;
+    /* Taille de police */
+   padding: 10px;
+    /* Espacement du texte par rapport au fond */
+  } 
+
+/* /////////////////////////BLOC 2 //////////////////////// */
+
+.Gcontainer {
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  width: 100%; /* Utilise la largeur complète de son conteneur parent */
+  height: 800px; /* 100% de la hauteur de la fenêtre visible */
+  display: flex; /* Utilise un modèle de boîte flexible pour centrer le texte */
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+}
+
+.centered-text3 {
+  
+  margin:0%;
+  text-align: center; /* Centre le texte horizontalement */
+  font-size: 24px; /* Taille de police */
+  background: rgb(0,212,255);
+  background: linear-gradient(40deg, rgba(0,212,255,1) 52%, rgba(8,228,180,1) 87%);
+  font-weight: bold Gras;
+  height: 500px;
+  width: 300px;
+}
+
+.centered-textD3 {
+  margin:2%;
+  text-align: center; /* Centre le texte horizontalement */
+  font-size: 24px; /* Taille de police */
+   font-weight: bold Gras;
+ background: rgb(112,228,124);
+ background: linear-gradient(40deg, rgba(112,228,124,1) 52%, rgba(184,252,92,1) 87%);
+  height: 500px;
+  width: 300px;
+}
+.herbe3 {
+
+margin-top: 60%;
+position: relative;
+align-self: flex-end ;
+
+}
+
+.dauphin3 {
+  margin-top: 60%;
+  position: relative;
+  align-self: flex-end ;
+   }
+
+p{
+  font-size: 79%;
+  color: rgb(255, 255, 255);
+  font-family: 'Raleway', sans-serif;
+}
+/* ///////////////BLOC 3 ////////////// */
+
+
+.grand_conteneur{
+  height: 98.5vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .moyen_conteneur{
+      flex-wrap: wrap;
+      justify-content: space-between; 
+      height: 640px;
+      width: 561px;
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      position: relative;
+  }
+  
+  .haut{
+    top: 13%;
+    left: 26%;
+    font-size: 23px;
+    display: flex;
+    position: relative;
+    width: 324px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    justify-content: center;
+  }
+
+
+
+  
+  .center1{
+      right: 8%;
+      margin: 2%;
+      display: flex;
+      position: relative;
+      width: 100%;
+      height: 15%;
+      background-color: rgb(255, 255, 255);
+  }
+  .like{
+      
+      display: flex;
+      position: relative;
+      border:solid rgb(255, 255, 255);
+      display: flex;
+      height: 100%;
+      align-items: center;
+      margin-right: 3%;
+      
+      
+  }
+  
+  .sixcent{
+      color: #25cdfc;
+      top: 30px;
+      position: relative;
+      align-items: center;
+  }
+  
+  .spane{
+      font-size: 42px;
+      font-weight: 500;
+  }
+  .pepe{
+      color: #827e7e;
+      position: relative;
+      bottom:20px ;
+      font-size: 11px;
+  }
+  .center2{
+      margin-bottom: 20%;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 15%;
+      background-color: rgb(252, 252, 252);
+  }
+  
+  .textesimple{
+      flex-direction: column;
+      font-size: 129%;
+      background-color: rgb(255, 255, 255);
+      display: flex;
+      position: relative;
+      text-align: center;
+      width: 100%;
+      height: 20%;
+      bottom: 60px;
+      
+  }
+  .bouton{
+      bottom: 20%;
+      align-items: center;
+      text-align: center;
+      display: flex;
+      position: relative;
+      height: 45px;
+      width: 150px;
+      border-radius: 20%;
+      left: 35%;
+  }
+  
+  .mon-bouton {
+     position: relative;
+      display: block;
+      background-color: rgb(21, 180, 29);
+      color: white;
+      width: 150px;
+      height: 45px;
+      border: black;
+      border-radius: 50px;
+      text-align: center;
+      cursor: pointer;
+      left: 33%;
+  
+  }
+  
+  
+  /* /////////////////////////BLOC 4 //////////////////////// */
+  .grandcontanimal{
+    height: 58.5vh;
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    justify-content: center;
+    overflow-x: hidden;
+    
+}
+.grandbcanimal {
+      
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 1000px;
+  max-height: 440px;
+  overflow: auto;
+}
+.grand-bloc-carre {
+
+  border-color: blue;
+  width: 220px;
+  height: 180px;
+  padding: 0;
+  margin: 0px;
+  margin-left: 0;
+  background-size: cover;
+  align-items: end;
+}
+.titreanimale{
+  margin-bottom: 0%;
+  justify-content: center;
+  display: flex;  
+  padding: 1% 
+} 
+
+.titreanimale{
+display: flex;
+left: 41%;
+    top: -3%;
+}
+.overlayblc6{
+  position:absolute;
+  align-items: flex-end;
+  display: flex;
+  border: solid black;
+  width: 100%;
+  height: 100%;
+
+}
+
+
+.carreblanc{
+  display: flex;
+  width: 100%;
+  height: 80px;
+  transition: 1s;
+  
+}
+
+/* //////////debut bloc5 /////////*/
+
+.BLOC9{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+
+.titrebloc9{
+  display: flex;
+  width: 100%;
+  height: 130px;
+  justify-content: center;
+  font-size: 40px;
+  font-family: "SST Light";
+  color: #4e5561;
+  font-weight: 500;
+}
+.centrebloc9{
+  display: flex;
+  width: 100%;
+  height: 450px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+/*GAUCHE COTÉ*/
+.centre1bloc9{
+  display: flex;
+  width: 35%;
+  height: auto;
+  flex-wrap: wrap;
+}
+.ecoloday{
+  display: flex;
+  justify-content: flex-end;
+  text-align: end;
+  color: #4e5561;
+  font-size: 30px;
+  width: 100%;
+  height: 40px;
+  font-family: "SST Light";
+}
+
+.ecoloday2{
+  display: flex;
+  justify-content: flex-start;
+  text-align: start;
+  color: #4e5561;
+  font-size: 30px;
+  width: 100%;
+  height: 40px;
+  font-family: "SST Light";
+}
+.case1bloc9{
+  display: flex;
+  justify-content: flex-end;
+  text-align: end;
+  width: 100%;
+  height: 30%;
+  font-family: "SST Light";
+  color: #4e5561;
+}
+
+.case2bloc9{
+  display: flex;
+  justify-content: flex-end;
+  text-align: end;
+  width: 100%;
+  height: 30%;
+  font-family: "SST Light";
+  color: #4e5561;
+}
+/*FIN GAUCHE COTÉ*/
+/*DÉBUT MILIEU*/
+.centre2bloc9{
+  display: flex;
+  flex-wrap: wrap;
+  width: 19%;
+  height: max-content;
+  justify-content: center;
+  align-items: start;
+}
+
+.ligne1centre2bloc9{
+  display: flex;
+  width: 100%;
+  height: 160px;
+  justify-content: space-around;
+  align-items: start;
+}
+.borderradius{
+  border: solid rgb(164, 164, 164) 1px;
+  border-radius: 50px;
+  padding: 25px;
+
+}
+.traitgrisbloc9{
+  width: 130px;
+  transform: rotate(90deg);
+  height: 1px;
+  background: rgb(214, 214, 214);
+  margin-bottom: 28px;
+
+}
+
+.ligne2centre2bloc9{
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: space-around;
+}
+.ligne3centre2bloc9{
+  display: flex;
+  width: 100%;
+  height: 160px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.centre3bloc9{
+  display: flex;
+  width: 35%;
+  height: auto;
+  flex-wrap: wrap;
+
+}
+.case3bloc9{
+  display: flex;
+  justify-content: flex-start;
+  text-align: start;
+  width: 100%;
+  height: 30%;
+  font-family: "SST Light";
+  color: #4e5561;
+}
+.case4bloc9{
+  display: flex;
+  justify-content: flex-start;
+  text-align: start;
+  width: 100%;
+  height: 30%;
+  font-family: "SST Light";
+  color: #4e5561;
+}
+
+/* //////////fin bloc5 /////////*/
+
+/* //////////debut bloc6 /////////*/
+
+
+.hautanimals{
+  font-size: 167%;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height:10% ;
+  background-color: rgba(255, 255, 255, 0.992);
+  justify-content: center;
+  bottom: 66%;
+}
+.clockquatre{
+
+display: flex;
+flex-direction: column;
+}
+
+.grandcontanimals{
+  height: 58.5vh;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.squareanimals{
+  background-color: white ;
+  justify-content:center;
+  display:flex ;
+  width:auto ;
+  height:55% ;    
+}
+
+.flexanimals{
+  margin-left: 2.5%;
+  display: flex;
+  flex-direction: column;
+  width: 315px;
+  height:398px ;
+  border:solid grey;
+}
+
+.feuille{
+display: flex;
+
+}
+.foret{
+display: flex;
+}
+
+.ours{
+display: flex;     
+}
+
+.fleur{
+display: flex;
+}
+
+.texte{
+  font-size: larger;
+  display: flex;
+  position: relative;
+  left: 10%;
+  top: 5%;
+}
+
+.span4{
+  display: flex;
+  position: relative;
+  left: 10%;
+}
+
+.icone{
+  display: flex;
+  position: relative;
+  top: 12%;
+  left: 9%;
+  margin-right: 60%;
+}
+.Icone{
+  display: flex;
+  position: relative;
+  top: 8%;
+  left: 75%;
+}
+
+
+/* //////////fin bloc6 /////////*/
+
+
+
+/* //////////fin bloc6 /////////*/
+
+/* //////////debut bloc7 /////////*/
+.TitreB5.deux{
+  display: flex;
+  position: relative;
+  width: 100%;
+  height:30% ;
+  background-color: rgba(185, 45, 45, 0.985);   
+}
+.Advantage{
+  font-size: 30px;
+}
+
+.blockdeux{
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+  border: 1px solid #888;
+  text-align: center;
+  line-height: 100px;
+  
+}
+.special-block{
+   background-color: rgb(0, 200, 255); /* Ajout de la couleur de fond bleu */
+color: white; /* Changement de la couleur du texte en blanc pour une meilleure lisibilité */
+border: 1px solid rgb(0, 200, 255)
+}
+
+.texteBLCcinq{
+  width: 658px;
+  display: flex;
+  position: relative;
+  border: 1px solid #888;
+  font-size: 120%;
+  margin-right: 40%;
+}
+.IntexBLCcinq{
+  display: flex;
+  position: relative;
+  background-color: rgb(255, 255, 255);
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-left: 5%;
+}
+
+.grandblocrouge2{
+  margin-left: 1%;
+  margin-block: auto;
+  background-color: rgb(255, 255, 255);
+  width: 54%;
+  height: 424px;
+
+}
+
+
+.barpourcent{
+  display: flex;
+    position: relative;
+    width: 100%;
+    height: 3%;
+    background-color: rgba(255, 255, 255, 0.985);
+ 
+  
+}
+
+ .progress-bar {
+  width: 100%;
+  background-color: #ffffff;
+  height: 60px;
+  margin-bottom: 10px;
+  
+}
+
+.progress {  
+  height: 100%;
+  text-align: right;
+  padding-right: 10px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+}
+
+.bar-1 { width: 75%; background-color: #0eaeda; }
+.bar-2 { width: 73%; background-color: #18e1c7; }
+.bar-3 { width: 92%; background-color: #18cd64; }
+.bar-4 { width: 88%; background-color: #76cd60; }
+.bar-5 { width: 78%; background-color: #92f312c9; }
+
+.texte55{
+  
+  margin-right: 16%;
+  display: flex;
+  position: relative;
+  left: 2%;
+  top: 30%;
+}
+
+.grandblocrouge{
+  margin-left: 1%;
+  margin-block: auto;
+  background-color: rgb(255, 255, 255);
+  width: 46%;
+  height: 424px;
+
+}
+
+/*/////////FIN DE PAGE LISTE ///////*/
+
+.grandblocrouge3{
+ 
+  margin-block: auto;
+  background-image: url(eauimage.webp);
+  width: 100%;
+  height: 335px;
+
+}
+
+.container {
+  display: flex;
+  
+}
+
+.service, .volunteer, .Blog, .About{
+  margin-left: 8%;
+  width: 13%;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+/*////////findepagebloc//////////*/
+
+.findepagebloc{
+  margin-left: 78%;
+  justify-content: center;
+  display: flex;
+  width: 22%;
+  height: 5%;
+  background-color: #ffffff;
+
+
+}
+.findepagebloce{
+  justify-content: center;
+  display: flex;
+  width: 22%;
+  height: 5%;
+  background-color: #ffffff;
+
+
+}
+.google{
+  margin: 2%;
+}
+
+  

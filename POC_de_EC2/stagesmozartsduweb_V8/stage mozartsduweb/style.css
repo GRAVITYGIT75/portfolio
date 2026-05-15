@@ -1,0 +1,315 @@
+html{
+    height: auto;
+    width: 100%;
+    height: 100%;
+    --s: 200px;
+    --c1: #1d1d1d;
+    --c2: #4e4f51;
+    --c3: #3c3c3c;
+
+    background: repeating-conic-gradient(
+          from 30deg,
+          #0000 0 120deg,
+          var(--c3) 0 180deg
+        )
+        calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+      repeating-conic-gradient(
+        from 30deg,
+        var(--c1) 0 60deg,
+        var(--c2) 0 120deg,
+        var(--c3) 0 180deg
+      );
+    background-size: var(--s) calc(var(--s) * 0.577);
+}
+body{
+    background-color: white;
+    margin: 0px;
+}
+.conteneur{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-top: 0px;
+}
+ul{
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+ul li{
+    font-size: 22px;
+    margin: auto;
+    padding: 10px;
+    color: white;
+}
+.titre{
+    margin: auto;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    font-size: 50px;
+}
+.erreur{
+    color:red;
+}
+p{
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    width: 90%;
+    color: white;
+    margin-top: 50px;
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+.photo{
+    display: flex;
+    width: 168px;
+    height: 168px;
+    background-position: 50% 50%;
+    background-size: cover;
+    border-radius: 50%;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("images/logo.jpg")
+}
+.formulaire{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: 50px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.formulaire form input{
+    width: 430px;
+    height: 60px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+    text-align: center;
+    border-style: solid;
+    border-color: #66ff66;
+    border-width: 5px;
+    border-radius: 500px;
+    outline: none;
+}
+
+.footer{
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10vh;
+    background-color: black;
+    margin-bottom: 0px;
+    margin-top: auto;
+}
+.InvisibleFooter{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 10vh;
+    margin-bottom: 0px;
+    margin-top: auto;
+}
+
+
+button {
+    top: 30%;
+    left:35%;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    padding: 0.9rem 2rem;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    position: relative;
+    display: inline-block;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 500px;
+    overflow: hidden;
+    background: #66ff66;
+    color: ghostwhite;
+   }
+   
+   button span {
+    position: relative;
+    z-index: 10;
+    transition: color 0.4s;
+   }
+   
+   button:hover span {
+    color: black;
+   }
+   
+   button::before,
+   button::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+   }
+   
+   button::before {
+    content: "";
+    background: #000;
+    width: 120%;
+    height: 110%;
+    left: -10%;
+    transform: skew(30deg);
+    transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+   }
+   
+   button:hover::before {
+    transform: translate3d(100%, 0, 0);
+   }
+
+   .fond {
+    width: 100%;
+    height: 100%;
+    --s: 200px;
+    --c1: #1d1d1d;
+    --c2: #4e4f51;
+    --c3: #3c3c3c;
+
+    background: repeating-conic-gradient(
+          from 30deg,
+          #0000 0 120deg,
+          var(--c3) 0 180deg
+        )
+        calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+      repeating-conic-gradient(
+        from 30deg,
+        var(--c1) 0 60deg,
+        var(--c2) 0 120deg,
+        var(--c3) 0 180deg
+      );
+    background-size: var(--s) calc(var(--s) * 0.577);
+  }
+
+  /* css formu*/
+
+  .conteneurform{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 700px;
+}
+.reponse{
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+}
+.reponse p{
+    margin: auto;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.footer p{
+    margin: auto;
+}
+.lesResponces{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    margin: auto;
+}
+.lesResponcess{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    text-align: center;
+    height: 250px;
+    margin: auto;
+    margin-bottom:60px;   
+}
+.lesinfos{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.reponsedeux{
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+}
+.reponsedeuxx{
+    
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+}
+.score{
+    margin: auto;
+    font-size: 35px;
+    color: white;
+}
+form{
+    width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+p{
+    font-size: 19px;
+}
+.titre{
+    font-size: 30px;
+}
+.formulaire form input{
+    width: 100%;
+}
+.formulaire{
+    width: 80%;
+}
+.score {
+    font-size: 30px;
+}
+}
+
+@media only screen and (max-width: 780px) {
+    p{
+        font-size: 15px;
+    }
+    form{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .conteneurform {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 700px;
+    }
+    .formulaire{
+        width: 80%;
+    }
+    ul li{
+        font-size: 15px;
+    }
+    .score {
+        font-size: 21px;
+    }
+}

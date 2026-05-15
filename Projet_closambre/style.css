@@ -1,0 +1,201 @@
+body{
+    margin: 0px;
+    background-color: #F8F8F8;
+}
+.Contact{
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: auto;
+    margin: auto;
+    z-index: 3;
+}
+.TitreForm{
+    text-align: center;
+    margin-top: 20px; 
+}
+form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 50px;
+    margin: auto;
+    margin-top: 20px;
+    height: auto;
+}
+input{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+textarea{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.informationsup{
+    font-style: italic;
+}
+.picto-mail{
+    width: 20px;
+    height: 15px;
+}
+.picto-tel{
+    width: 20px;
+    height: 20px;
+}
+.logo{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+}
+.footer{
+    display: flex;
+    flex-direction: row;
+    background-color: #279643;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    position: fixed;
+    bottom: 0px;
+    z-index: 4;
+}
+.footerinvisible{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+}
+.footer p{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    color: white;
+}
+.confirmation{
+    text-align: center;
+}
+.imgtop{
+    bottom: 10%;
+    display: flex;
+    position: fixed;
+    width: 14%;
+    left: 2%;
+}
+.imgtop2{
+    display: flex;
+    position: fixed;
+    width: 12%;
+    top:2%;
+    right: 2%;
+}
+.blockaccompagnateur{
+    display: none;
+    flex-direction: column;
+}
+.englobevillecdp{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    gap: 20px;
+}
+.separationvillecdp{
+    margin: auto;
+    margin-left: 0px;
+    margin-right: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+}
+.separationvillecdp input{
+    padding: 10px;
+    width: 100%;
+    height: 36px;
+}
+.separationvillecdp label{
+    margin: auto;
+    margin-left: 0px;
+    margin-right: 10px;
+    width: auto;
+}
+.informationsup p{
+    margin:auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+.descriptioninformationsup{
+    font-size: 10px;
+}
+.erreur{
+    margin-top: -17px;
+    color: red;
+    font-size: 12px;
+}
+  select{
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+textarea{
+    resize: none;
+    height: 100px;
+}
+
+button[type='submit']{
+    margin-top: 20px;
+    margin-bottom: 28px;
+}
+
+.responsivegauche {
+    left: -10px;
+    display: none;
+    flex-direction: row;
+    width: 50%;
+    height: 100vh;
+    z-index: 1;
+    position: fixed;
+    background-image: url(carre_gauche.png);
+    background-size: 52%;
+    background-repeat: repeat;
+
+}
+
+.responsivedroite{
+    right: 0;
+    display: none;
+    flex-direction: row;
+    width: 50%;
+    height: 100vh;
+    z-index: 1;
+    position: fixed;
+    background-image: url(carre_droit.png);
+    background-size: 52%;
+    background-repeat: repeat;
+
+}
+
+
+@media screen and (max-width: 840px){
+
+    .Contact{
+        width: 80%;
+       
+    }
+    .responsivegauche , .responsivedroite{
+        display: flex;
+        
+    }
+    .imgtop, .imgtop2, .imgbottom{
+        display: none
+    }
+
+
+}
+    

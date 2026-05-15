@@ -1,0 +1,347 @@
+html{
+    overflow-x: hidden;
+}
+
+body{
+    margin-left: 0px;
+}
+
+.entetepage{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    height: 110px;
+
+}
+
+.superieur_entete{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 108px;
+}
+
+.text_entete{
+    margin: auto;
+}
+
+.bouton_enete{
+    display:flex;
+    flex-direction: column;
+    width: 170px;
+    height: 60px;
+    border-radius: 20px;
+    margin: auto 50px auto auto;
+    background-color: black;
+
+}
+
+.center{
+    margin: auto auto auto auto;
+}
+
+.centerbtn{
+    margin: auto auto auto auto;
+}
+.traie_noir{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 5px;
+    background-color: black;
+    margin-bottom: 2px;
+
+}
+
+.partition_exam{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 750px;
+    background-image: url(assets/mountain.jpg);
+    background-size: cover;
+}
+
+.text_exam{
+    display:flex;
+    flex-direction: column;
+    width: 30%;
+    height: 200px;
+    line-height: 10px;
+    margin: 250px auto auto auto;
+}
+
+.logo{
+    width: 60px;
+    margin-bottom: 200px;
+    margin-left: 26%;
+    position: absolute;
+}
+
+.text_exam_centre{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.partition_gaucheetdroit{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 700px;
+    background-color: lightgreen;
+}
+
+.separation{
+    display:flex;
+    flex-direction: column;
+    width: 45%;
+    height: 650px;
+    margin: auto auto auto auto;
+}
+
+.image1{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 380px;
+    background-image: url(assets/cityskyline.png);
+    background-size: cover;
+    margin-top: 15px;
+
+}
+
+.image2{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 380px;
+    background-image: url(assets/graveyard.png);
+    background-size: cover;
+    margin-top: 15px;
+
+}
+
+.bas_separation{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    height: 80px;
+    margin-top: auto;
+}
+
+.traie_noir_sep{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    margin-bottom: 2px;
+
+}
+
+.text_sep{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 77px;
+}
+
+.best_img{
+    width: 100px;
+    margin-bottom: 300px;
+    margin-left: 40%;
+    position: absolute;
+    transform: rotate(20deg);
+}
+
+.text_sep_text1{
+    margin-right: auto;
+}
+
+.text_sep_text2{
+    margin-left: auto;
+}
+
+.partition_remerciments{
+    display:flex;
+    flex-direction: row;
+    width: 100%;
+    height: 85px;
+    background-color: lightseagreen;
+}
+
+.color_blanc{
+    color: white;
+}
+
+.font_titre{
+    font-size: 80px;
+    margin-bottom: 35px;
+}
+
+.sous_titre{
+    margin-top: 20px;
+
+}
+
+.space_word{
+    padding: 20px;
+}
+
+.menu{
+    display: none;
+}
+
+.color_remer{
+    color:black;
+}
+
+.open_menu{
+    display: none;
+}
+
+.opensans{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+
+    html{
+        width: 800px;
+    }
+    .menu{
+        display: block;
+        width: 80px;
+    }
+
+    .text_entete{
+        display: none;
+    }
+
+    .partition_exam{
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        height: 500px;
+        background-image: url(assets/mountain.jpg);
+        background-size: 792px 500px;
+    }
+
+    .text_exam{
+        display:flex;
+        flex-direction: column;
+        width: 30%;
+        height: 200px;
+        line-height: 10px;
+        margin: 100px auto auto 20px;
+    }
+
+    .partition_gaucheetdroit{
+        display:flex;
+        flex-direction: column-reverse;
+        width: 100%;
+        height: 1200px;
+        background-color: brown;
+    }
+
+    .image1{
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        height: 300px;
+        background-image: url(assets/cityskyline.png);
+        background-size: 712px 300px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        margin-top: 15px;
+    
+    }
+
+    .image2{
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        height: 300px;
+        background-image: url(assets/graveyard.png);
+        background-size: 712px 300px;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        margin-top: 15px;
+    }
+
+    .separation{
+        display:flex;
+        flex-direction: column;
+        width: 90%;
+        height: 650px;
+        margin: 30px auto auto auto;
+    }
+
+    .best_img{
+        display: none;
+    }
+
+    .center{
+        margin: auto auto auto 400px;
+
+    }
+    
+
+    
+
+    .partition_remerciments{
+        display:flex;
+        flex-direction: row;
+        width: 100%;
+        height: 85px;
+        background-color: rgba(23, 77, 121, 0.927);
+    }
+
+    .color_remer{
+        color:white;
+        margin-right: 10px;
+    }
+
+    .font_titre{
+        font-size: 60px;
+        margin-bottom: 25px;
+    }
+    
+    .sous_titre{
+        margin-top: 10px;
+    }
+
+    .logo{
+        width: 50px;
+        margin-bottom: 200px;
+        margin-left: 30%;
+        position: absolute;
+    }
+
+    .bouton_enete{
+        display:flex;
+        flex-direction: column;
+        width: 170px;
+        height: 60px;
+        border-radius: 0px;
+        margin: auto 50px auto auto;
+        background-color: black;
+    
+    }
+
+    #menu:hover .open_menu{
+        display:flex;
+        flex-direction: column;
+        width: 200px;
+        height: 600px;
+        margin-top: 110px;
+        position: absolute;
+        background-color: azure;
+
+    }
+    
+    
+
+}
