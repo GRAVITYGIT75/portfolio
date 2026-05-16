@@ -2,891 +2,1690 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles.css" rel="stylesheet" type="text/css" />
-    <link href="theme.css" rel="stylesheet" type="text/css" />
-    <meta name="description"
-        content="Portfolio professionnel de Emmanuel Rogue, développeur web spécialisé en HTML, CSS, JavaScript et PHP.">
-    <meta name="keywords" content="portfolio, développeur web, HTML, CSS, JavaScript, PHP, projets">
-    <title>Rogue Emmanuel | Portfolio </title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- CDN & Fonts -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  SECURITY HEADERS (OWASP Best Practices)             ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+             font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+             img-src 'self' data: blob:;
+             connect-src 'self';
+             frame-ancestors 'none';">
+  <!-- Anti-Clickjacking -->
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <!-- MIME Sniffing -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <!-- Referrer Policy -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta name="description"
+    content="Portfolio professionnel de Emmanuel Rogue, développeur web & étudiant en cybersécurité à Ynov Campus Lille." />
+  <meta name="keywords" content="portfolio, développeur web, cybersécurité, HTML, CSS, JavaScript, PHP, Symfony" />
+  <title>Rogue Emmanuel | Portfolio</title>
 
+  <!-- Tailwind CSS (CDN - SRI non disponible pour tailwind play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome (SRI Hash) -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+
+  <style>
+    /* ═══════════════════════════════════════════════
+       DESIGN SYSTEM — Variables CSS
+    ═══════════════════════════════════════════════ */
+    :root {
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+
+      /* Light palette */
+      --bg-base:       #f8f9ff;
+      --bg-surface:    #ffffff;
+      --bg-muted:      #f1f3fb;
+      --text-primary:  #0b0d1a;
+      --text-secondary:#4a5070;
+      --text-muted:    #8890aa;
+      --border:        #e2e5f0;
+      --nav-bg:        rgba(255,255,255,0.85);
+
+      /* Accent */
+      --accent-1: #3b5bdb;
+      --accent-2: #0ea5e9;
+      --accent-glow: rgba(59, 91, 219, 0.25);
+      --gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    }
+
+    html.dark {
+      --bg-base:       #070910;
+      --bg-surface:    #0e1120;
+      --bg-muted:      #131729;
+      --text-primary:  #e8eaf6;
+      --text-secondary:#9ba3c4;
+      --text-muted:    #5a6382;
+      --border:        #1e2340;
+      --nav-bg:        rgba(7,9,16,0.9);
+    }
+
+    /* ═══════════════════════════════════════════════
+       BASE
+    ═══════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-display);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      transition: background .3s, color .3s;
+      overflow-x: hidden;
+      cursor: none;           /* custom cursor on desktop */
+    }
+
+    @media (max-width: 768px) { body { cursor: auto; } }
+
+    h1,h2,h3,h4 { font-family: var(--font-display); font-weight: 700; }
+
+    /* ─── Scroll Progress Bar ─── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      height: 3px; width: 0%;
+      background: var(--gradient);
+      transition: width .1s linear;
+    }
+
+    /* ─── Custom Cursor ─── */
+    #cursor, #cursor-dot {
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: transform .1s, opacity .3s;
+    }
+    #cursor {
+      width: 36px; height: 36px;
+      border: 2px solid var(--accent-1);
+      border-radius: 50%;
+      transition: width .2s, height .2s, border-color .2s, transform .1s;
+      mix-blend-mode: difference;
+    }
+    #cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--accent-2);
+      border-radius: 50%;
+    }
+    body.cursor-hover #cursor {
+      width: 56px; height: 56px;
+      border-color: var(--accent-2);
+    }
+    @media (max-width: 768px) { #cursor, #cursor-dot { display: none; } }
+
+    /* ─── Gradient Utilities ─── */
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .gradient-bg { background: var(--gradient); }
+
+    /* ─── Noise overlay texture ─── */
+    .noise::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ═══════════════════════════════════════════════
+       NAVIGATION — ciblée par ID pour ne pas affecter
+       les éléments <nav> du footer ou des sections
+    ═══════════════════════════════════════════════ */
+    nav#main-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s, border-color .3s;
+    }
+
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-weight: 800; font-size: 1.25rem;
+      background: var(--gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      cursor: pointer;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    @media (max-width: 768px) { .nav-links { display: none; } }
+
+    .nav-link {
+      font-size: .875rem; font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      position: relative;
+      transition: color .2s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gradient);
+      transition: width .3s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-link:hover { color: var(--text-primary); }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ─── Theme Toggle (pill switch) ─── */
+    .theme-toggle {
+      display: flex; align-items: center; gap: .5rem;
+      background: var(--bg-muted); border: 1px solid var(--border);
+      border-radius: 999px; padding: 4px;
+      cursor: pointer;
+    }
+    .toggle-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      font-size: .75rem; color: var(--text-muted);
+      transition: background .2s, color .2s;
+      background: transparent; border: none; cursor: pointer;
+    }
+    .toggle-btn.active {
+      background: var(--gradient); color: white;
+    }
+
+    /* ─── Mobile Menu ─── */
+    #mobile-menu {
+      position: fixed; top: 64px; left: 0; right: 0;
+      background: var(--bg-surface); border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      transform: translateY(-110%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      z-index: 499;
+    }
+    #mobile-menu.open { transform: translateY(0); }
+    #mobile-menu a {
+      display: block; padding: .75rem 0;
+      color: var(--text-secondary); text-decoration: none;
+      font-weight: 500; border-bottom: 1px solid var(--border);
+      transition: color .2s;
+    }
+    #mobile-menu a:hover { color: var(--accent-1); }
+
+    /* ═══════════════════════════════════════════════
+       SECTIONS — Base
+    ═══════════════════════════════════════════════ */
+    section { position: relative; }
+
+    .section-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 5rem 1.5rem;
+    }
+
+    .section-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent-1);
+      background: rgba(59,91,219,.08); border: 1px solid rgba(59,91,219,.2);
+      border-radius: 999px; padding: .3rem .9rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════ */
+    #home {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--bg-base);
+      overflow: hidden;
+    }
+
+    /* Animated grid background */
+    #home::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: .4;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    /* Glowing orbs */
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none; opacity: .15;
+    }
+    .hero-orb-1 {
+      width: 600px; height: 600px;
+      background: var(--accent-1);
+      top: -200px; right: -100px;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: var(--accent-2);
+      bottom: -100px; left: -100px;
+      animation: orbFloat 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes orbFloat {
+      0%,100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(30px,-30px) scale(1.05); }
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-mono); font-size: .75rem;
+      color: var(--accent-2);
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent-2);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(14,165,233,.7); }
+      50% { box-shadow: 0 0 0 6px rgba(14,165,233,0); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+
+    /* Typing cursor */
+    #typed-cursor {
+      display: inline-block;
+      width: 3px; height: .8em;
+      background: var(--accent-1);
+      margin-left: 4px; vertical-align: middle;
+      animation: blink .8s step-end infinite;
+    }
+    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+    .hero-subtitle {
+      margin-top: 1.5rem;
+      font-size: 1.1rem; font-weight: 400;
+      color: var(--text-secondary);
+      max-width: 520px; line-height: 1.7;
+    }
+
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.75rem; border-radius: 12px;
+      font-weight: 600; font-size: .9rem;
+      background: var(--gradient); color: white;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(59,91,219,.35);
+      transition: transform .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+      opacity: 0; transition: opacity .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,91,219,.45); }
+    .btn-primary:hover::before { opacity: 1; }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .8rem 1.75rem; border-radius: 12px;
+      font-weight: 600; font-size: .9rem;
+      color: var(--text-primary); text-decoration: none;
+      border: 1px solid var(--border);
+      background: var(--bg-surface);
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent-1); transform: translateY(-2px); }
+
+    .hero-social { display: flex; gap: 1rem; margin-top: 2rem; }
+    .social-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--text-muted); text-decoration: none;
+      transition: color .2s, border-color .2s, background .2s, transform .2s;
+      background: var(--bg-surface);
+    }
+    .social-link:hover {
+      color: white; background: var(--gradient);
+      border-color: transparent; transform: translateY(-3px);
+    }
+
+    /* Hero Image */
+    .hero-image-wrap {
+      position: relative; z-index: 1;
+    }
+    .hero-img-frame {
+      position: relative; border-radius: 24px; overflow: hidden;
+      background: var(--gradient); padding: 3px;
+      box-shadow: 0 25px 60px rgba(59,91,219,.25);
+    }
+    .hero-img-frame img {
+      width: 100%; border-radius: 22px;
+      display: block; object-fit: cover;
+    }
+
+    /* Floating badge on image */
+    .hero-badge {
+      position: absolute; bottom: -16px; left: -16px;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: .75rem 1rem;
+      display: flex; align-items: center; gap: .75rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      animation: orbFloat 4s ease-in-out infinite;
+    }
+    .hero-badge-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1rem;
+    }
+    .hero-badge-text { font-size: .75rem; font-weight: 600; color: var(--text-primary); }
+    .hero-badge-sub { font-size: .65rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+    /* ═══════════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════════ */
+    #about { background: var(--bg-surface); }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .profile-wrap { position: relative; display: flex; justify-content: center; }
+    .profile-ring {
+      position: relative; padding: 4px;
+      border-radius: 50%;
+      background: var(--gradient);
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+    .profile-ring img {
+      width: 220px; height: 220px; border-radius: 50%;
+      object-fit: cover; display: block;
+      border: 4px solid var(--bg-surface);
+    }
+
+    /* Stats */
+    .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 2rem; }
+    .stat-card {
+      background: var(--bg-muted); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1rem;
+      text-align: center; transition: border-color .2s;
+    }
+    .stat-card:hover { border-color: var(--accent-1); }
+    .stat-number { font-size: 1.75rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat-label { font-size: .7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; margin-top: .25rem; font-family: var(--font-mono); }
+
+    /* ═══════════════════════════════════════════════
+       PROJECTS
+    ═══════════════════════════════════════════════ */
+    #projects { background: var(--bg-base); }
+
+    .projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    @media (max-width: 1024px) { .projects-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px) { .projects-grid { grid-template-columns: 1fr; } }
+
+    .project-card {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+      will-change: transform;
+    }
+    .project-card:hover {
+      border-color: rgba(59,91,219,.4);
+      box-shadow: 0 20px 40px rgba(59,91,219,.12);
+    }
+
+    .card-img-wrap { overflow: hidden; height: 200px; }
+    .card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+    }
+    .project-card:hover .card-img-wrap img { transform: scale(1.05); }
+
+    .card-body { padding: 1.5rem; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: .5rem; }
+    .card-desc { font-size: .85rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1rem; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: 1.25rem; }
+    .tag {
+      padding: .2rem .65rem; border-radius: 999px;
+      font-size: .7rem; font-weight: 600; font-family: var(--font-mono);
+    }
+    .tag-blue { background: rgba(59,91,219,.1); color: var(--accent-1); border: 1px solid rgba(59,91,219,.2); }
+    .tag-cyan { background: rgba(14,165,233,.1); color: var(--accent-2); border: 1px solid rgba(14,165,233,.2); }
+    .tag-purple { background: rgba(139,92,246,.1); color: #8b5cf6; border: 1px solid rgba(139,92,246,.2); }
+    .tag-green { background: rgba(16,185,129,.1); color: #10b981; border: 1px solid rgba(16,185,129,.2); }
+    .tag-orange { background: rgba(245,158,11,.1); color: #f59e0b; border: 1px solid rgba(245,158,11,.2); }
+    .tag-red { background: rgba(239,68,68,.1); color: #ef4444; border: 1px solid rgba(239,68,68,.2); }
+
+    .card-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .85rem; font-weight: 600;
+      color: var(--accent-1); text-decoration: none;
+      transition: gap .2s, color .2s;
+    }
+    .card-link:hover { gap: .7rem; color: var(--accent-2); }
+
+    /* ═══════════════════════════════════════════════
+       CERTIFICATIONS
+    ═══════════════════════════════════════════════ */
+    #certifications { background: var(--bg-surface); }
+
+    .certs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    @media (max-width: 1024px) { .certs-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px) { .certs-grid { grid-template-columns: 1fr; } }
+
+    .cert-card {
+      position: relative; padding: 1.75rem;
+      background: var(--bg-muted); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      transition: border-color .3s, transform .3s;
+    }
+    .cert-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--gradient);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.4,0,.2,1);
+    }
+    .cert-card:hover { border-color: rgba(59,91,219,.3); transform: translateY(-4px); }
+    .cert-card:hover::before { transform: scaleX(1); }
+
+    .cert-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.1rem; margin-bottom: 1rem;
+    }
+    .cert-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: .5rem; }
+    .cert-desc { font-size: .82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+    .cert-footer { display: flex; justify-content: space-between; align-items: center; }
+    .cert-meta { font-size: .72rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .cert-link {
+      font-size: .8rem; font-weight: 600; color: var(--accent-1);
+      text-decoration: none; transition: color .2s;
+    }
+    .cert-link:hover { color: var(--accent-2); }
+
+    /* ═══════════════════════════════════════════════
+       SKILLS CAROUSEL
+    ═══════════════════════════════════════════════ */
+    #journey { background: var(--bg-base); }
+
+    .skills-track {
+      display: flex; gap: 1.25rem;
+      overflow-x: auto; padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -ms-overflow-style: none; scrollbar-width: none;
+    }
+    .skills-track::-webkit-scrollbar { display: none; }
+
+    .skill-card {
+      flex: 0 0 260px; scroll-snap-align: start;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.5rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .skill-card:hover { border-color: rgba(59,91,219,.4); transform: translateY(-4px); }
+    .skill-card-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 1.3rem; margin-bottom: 1rem;
+    }
+    .skill-card-title { font-size: .95rem; font-weight: 700; color: var(--text-primary); margin-bottom: .5rem; }
+    .skill-card-desc { font-size: .8rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Skill level bar */
+    .skill-bar { height: 4px; background: var(--border); border-radius: 999px; margin-top: 1rem; overflow: hidden; }
+    .skill-fill {
+      height: 100%; border-radius: 999px;
+      background: var(--gradient);
+      width: 0%; transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ═══════════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════════ */
+    #contact { background: var(--bg-surface); }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .contact-info-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem; border-radius: 14px;
+      border: 1px solid var(--border); background: var(--bg-muted);
+      transition: border-color .2s, transform .2s;
+    }
+    .contact-info-item:hover { border-color: rgba(59,91,219,.3); transform: translateX(4px); }
+    .contact-info-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: .9rem; flex-shrink: 0;
+    }
+    .contact-info-label { font-size: .7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .08em; font-family: var(--font-mono); }
+    .contact-info-value { font-size: .9rem; font-weight: 500; color: var(--text-primary); text-decoration: none; }
+    .contact-info-value:hover { color: var(--accent-1); }
+
+    /* Form */
+    .contact-form {
+      background: var(--bg-muted); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } }
+
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block; font-size: .8rem; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: .4rem;
+      font-family: var(--font-mono);
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: .7rem 1rem;
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--text-primary);
+      font-family: var(--font-display); font-size: .9rem;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent-1);
+      box-shadow: 0 0 0 3px rgba(59,91,219,.12);
+    }
+    .form-input.error, .form-textarea.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.12); }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-error { font-size: .72rem; color: #ef4444; margin-top: .3rem; display: none; font-family: var(--font-mono); }
+    .form-error.show { display: block; }
+
+    .form-check { display: flex; align-items: flex-start; gap: .6rem; margin-bottom: 1.25rem; }
+    .form-check input { margin-top: 2px; accent-color: var(--accent-1); }
+    .form-check label { font-size: .8rem; color: var(--text-secondary); line-height: 1.5; }
+
+    .form-success {
+      display: none; padding: 1rem;
+      background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.25);
+      border-radius: 12px; text-align: center;
+      color: #10b981; font-size: .9rem; font-weight: 500;
+    }
+    .form-success.show { display: block; }
+
+    /* ═══════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════ */
+    footer {
+      background: var(--bg-base);
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: .85rem; color: var(--text-muted);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--accent-1); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border); padding-top: 1.5rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-copy { font-size: .8rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+    /* ═══════════════════════════════════════════════
+       COOKIE BANNER
+    ═══════════════════════════════════════════════ */
+    #cookie-banner {
+      position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(120px);
+      width: min(520px, calc(100vw - 2rem));
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+      z-index: 5000; display: none;
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    }
+    #cookie-banner.show {
+      display: block;
+      animation: cookieSlide .5s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    @keyframes cookieSlide {
+      from { transform: translateX(-50%) translateY(120px); opacity: 0; }
+      to   { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    .cookie-title { font-size: .95rem; font-weight: 700; color: var(--text-primary); margin-bottom: .5rem; }
+    .cookie-text { font-size: .8rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+    .cookie-actions { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+    /* ─── Back to Top ─── */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 400;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--gradient); color: white; border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(59,91,219,.35);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #back-to-top:hover { transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s cubic-bezier(.4,0,.2,1), transform .7s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ═══════════════════════════════════════════════
+       SECTION TITLES
+    ═══════════════════════════════════════════════ */
+    .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+    .section-subtitle { font-size: 1rem; color: var(--text-secondary); max-width: 540px; line-height: 1.7; margin-top: .75rem; }
+  </style>
 </head>
 
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-sm z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center">
-                    <span class="text-xl font-bold gradient-text">Rogue Emmanuel</span>
-                </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-center space-x-8">
-                        <a href="#home"
-                            class="nav-link text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Accueil</a>
-                        <a href="#about"
-                            class="nav-link text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium">À
-                            Propos</a>
-                        <a href="#projects"
-                            class="nav-link text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Projets</a>
-                        <a href="#certifications"
-                            class="nav-link text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Certifications</a>
-                        <a href="#journey"
-                            class="nav-link text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Compétences</a>
-                        <a href="#contact"
-                            class="nav-link text-gray-900 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Contact</a>
-                        <label class="ui-switch">
-                            <input type="checkbox" id="theme-toggle">
-                            <div class="slider">
-                                <div class="circle"></div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" id="mobile-menu-button"
-                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                        aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Ouvrir le menu principal</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+<body>
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" role="progressbar" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  NAVIGATION                                          ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <nav id="main-nav" role="navigation" aria-label="Navigation principale">
+    <div class="nav-inner">
+      <span class="nav-logo">Rogue Emmanuel</span>
+
+      <div class="nav-links" role="menubar">
+        <a href="#home"           class="nav-link" role="menuitem">Accueil</a>
+        <a href="#about"          class="nav-link" role="menuitem">À Propos</a>
+        <a href="#projects"       class="nav-link" role="menuitem">Projets</a>
+        <a href="#certifications" class="nav-link" role="menuitem">Certifications</a>
+        <a href="#journey"        class="nav-link" role="menuitem">Compétences</a>
+        <a href="#contact"        class="nav-link" role="menuitem">Contact</a>
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" role="group" aria-label="Thème">
+          <button class="toggle-btn active" id="btn-light" aria-label="Mode clair" title="Mode clair">
+            <i class="fas fa-sun"></i>
+          </button>
+          <button class="toggle-btn" id="btn-dark" aria-label="Mode sombre" title="Mode sombre">
+            <i class="fas fa-moon"></i>
+          </button>
         </div>
+      </div>
 
-        <!-- Mobile menu -->
-        <div class="hidden md:hidden bg-white shadow-lg" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-indigo-600 hover:bg-gray-50">Accueil</a>
-                <a href="#about"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-indigo-600 hover:bg-gray-50">À
-                    Propos</a>
-                <a href="#projects"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-indigo-600 hover:bg-gray-50">Projets</a>
-                <a href="#certifications"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-indigo-600 hover:bg-gray-50">Certifications</a>
-                <a href="#journey"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-indigo-600 hover:bg-gray-50">Compétences</a>
-                <a href="#contact"
-                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:text-indigo-600 hover:bg-gray-50">Contact</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-12 lg:gap-8">
-                <div class="sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left">
-                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                        <span class="block">Bonjour, je suis</span>
-                        <span class="block gradient-text">Rogue Emmanuel</span>
-                    </h1>
-                    <p
-                        class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        Apprenti développeur web passionné par la création d'interfaces modernes et performantes.
-                    </p>
-                    <div class="mt-8 sm:mt-12 flex flex-wrap gap-4 sm:justify-center lg:justify-start">
-                        <a href="#contact"
-                            class="gradient-bg px-6 py-3 rounded-md text-white font-medium hover:shadow-lg transition duration-300">
-                            Me contacter
-                        </a>
-                        <a href="#projects"
-                            class="bg-white px-6 py-3 rounded-md text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 transition duration-300">
-                            Voir mes projets
-                        </a>
-                    </div>
-                    <div class="mt-8 flex justify-center lg:justify-start space-x-6">
-                        <a href="https://github.com/GRAVITYGIT75" aria-label="GitHub" class="social-btn text-gray-400 hover:text-gray-500">
-                            <i class="fab fa-github text-2xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/emmanuel-rogue-75935a301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn" class="social-btn text-gray-400 hover:text-blue-600">
-                            <i class="fab fa-linkedin text-2xl"></i>
-                        </a>
-                        <a href="#contact" aria-label="WhatsApp" class="social-btn text-gray-400 hover:text-green-500">
-                            <i class="fab fa-whatsapp text-2xl"></i>
-                        </a>
-                        <a href="https://discord.com/channels/@me" aria-label="Discord" class="social-btn text-gray-400 hover:text-indigo-500">
-                            <i class="fab fa-discord text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
-                <div
-                    class="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
-                    <div class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
-                        <div class="gradient-border p-1 rounded-lg">
-                            <img class="w-full rounded-lg object-cover"
-                                src="photos_projet/maphoto2.jpg"
-                                alt="Développement web">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-white">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="lg:grid lg:grid-cols-12 lg:gap-8">
-			<div class="lg:col-span-5 flex justify-center mb-8 lg:mb-0">
-				<div class="relative">
-					<img class="profile-img w-64 h-64 rounded-full object-cover"
-						src="photos_projet/Emmanuel.ROGUE.JPG"
-						alt="Photo de profil">
-					<div class="absolute -bottom-5 -right-5 bg-white p-3 rounded-full shadow-md pulse">
-						<div class="gradient-bg w-12 h-12 rounded-full flex items-center justify-center">
-							<i class="fas fa-code text-white text-xl"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="lg:col-span-7">
-				<h2 class="text-3xl font-bold text-gray-900 mb-6">
-					À propos de <span class="gradient-text">moi</span>
-				</h2>
-				<div class="prose max-w-none text-gray-500 space-y-4">
-					<p>
-						Je suis Emmanuel, passionné par le développement web et désormais par la cybersécurité. Mon parcours a été jalonné de projets variés qui m’ont permis de découvrir, apprendre et renforcer mes compétences techniques. Actuellement en Bachelor 2 Cybersécurité à Ynov Campus Lille, je me forme pour devenir un expert capable de protéger, analyser et sécuriser les systèmes informatiques, tout en gardant une vision globale du développement Full Stack que j’ai acquis auparavant.<br><br>
-
-						En dehors du code et de la cybersécurité, je suis un grand sportif. J’aime me dépenser et repousser mes limites dans différentes disciplines comme le tennis, l’escrime et le judo.<br><br>
-
-						N’hésitez pas à consulter mon portfolio complet pour en savoir plus sur mon parcours, mes projets et mes réalisations dans le monde du développement et de la cybersécurité.
-					</p>
-				</div>
-				<div class="mt-8">
-					<a href="mon_cvpro.pdf"
-						class="inline-flex items-center gradient-bg px-6 py-3 rounded-md text-white font-medium hover:shadow-lg transition duration-300">
-						<i class="fas fa-download mr-2"></i>
-						Télécharger mon CV
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">
-                    Mes <span class="gradient-text">projets</span>
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    Découvrez une sélection de mes réalisations récentes.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div
-                    class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover"
-                            src="photos_projet/mathindex.webp"
-                            alt="Projet 1">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet MathIndex</h3>
-                        <p class="text-gray-500 mb-4">
-                            Développement d'une bibliothèque en ligne dédiée aux mathématiques,
-                             conçue pour faciliter l'accès aux ressources pédagogiques pour enseignants 
-                             et élèves. Ce projet de groupe a été encadré par 
-                             Mr Idasiak et Mr Martins Jacquelot, mettant en avant des compétences 
-                             collaboratives et techniques approfondies.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">php</span>
-                            <span
-                                class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">Node.js</span>
-                            <span
-                                class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">Html&css</span>
-                        </div>
-                        <a href="https://github.com/Orgalord-Darkness/Math_Index_Groupe4" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div
-                    class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover"
-                            src="photos_projet/projetcongefacilewebp.webp"
-                            alt="Projet 2">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet Congé Facile</h3>
-                        <p class="text-gray-500 mb-4">
-                            Développement d'un site en ligne dédiée aux gestion des congés dans une entrprise,
-                             conçue pour faciliter les employés a leur demande de congé.
-                              Ce projet de groupe a été encadré par Mr Martins Jacquelot, 
-                              mettant en avant des compétences collaboratives et techniques approfondies sur symfony.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">Symfony</span>
-                            <span
-                                class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded">tailwind</span>
-                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded">twig</span>
-                        </div>
-                        <a href="https://github.com/Fnafgameur/CongeFacile" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div
-                    class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover"
-                            src="photos_projet/Pjocsharp.webp"
-                            alt="Projet 3">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet Gestion de Theatre</h3>
-                        <p class="text-gray-500 mb-4">
-                            Ceci est un projet de Gestion de théâtre réalisé en entièrement en C# par Noah, Milan et Emmanuel.
-                            Ce projet a pour but des gestion des réservations de places de théâtre.
-                             La réaliasation de ce projet intervient dans le cadre de notre 2ème année de BTS SIO 
-                             au Lycée Saint-Vincent de Senlis. Nous utilisons la méthode AGILE pour gérer la répartition des tâches
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span
-                                class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">C SHARP
-                            </span>
-                            
-                        </div>
-                        <a href="https://github.com/MilanSY/Projet_GestionTheatre" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 text-center">
-                <a href="mesprojet.html"
-                    class="inline-flex items-center gradient-bg px-6 py-3 rounded-md text-white font-medium hover:shadow-lg transition duration-300">
-                    <i class="fas fa-folder-open mr-2"></i>
-                    Voir tous mes projets
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certifications Section -->
-    <section id="certifications" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">
-                    Mes <span class="gradient-text">certifications</span>
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    Les formations qui ont validé mes compétences.
-                </p>
-            </div>
-
-            <div class="relative">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Certification 1 -->
-                    <div class="gradient-border p-1 rounded-lg">
-                        <div class="bg-white p-6 rounded-lg h-full">
-                            <div class="flex items-center mb-4">
-                                <div class="gradient-bg p-3 rounded-full mr-4">
-                                    <i class="fas fa-certificate text-white text-xl"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900">Certification HTML/CSS</h3>
-                            </div>
-                            <p class="text-gray-500 mb-4">
-                                Certification obtenue après une formation approfondie sur les bases du développement web, 
-                                incluant les technologies front-end comme HTML et CSS, ainsi que les bonnes pratiques 
-                                pour créer des interfaces modernes et responsives.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">OpenClassrooms • 2025</span>
-                                <a href="photos_projet/CertificationHTMLCSS (1).pdf" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-                                    Voir le certificat
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Certification 2 -->
-                    <div class="gradient-border p-1 rounded-lg">
-                        <div class="bg-white p-6 rounded-lg h-full">
-                            <div class="flex items-center mb-4">
-                                <div class="gradient-bg p-3 rounded-full mr-4">
-                                    <i class="fas fa-certificate text-white text-xl"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900">Certification C Sharp</h3>
-                            </div>
-                            <p class="text-gray-500 mb-4">
-                                Certification obtenue après une formation approfondie sur le langage C# et le développement 
-                                d'applications robustes, mettant en avant les concepts de programmation orientée objet 
-                                et les bonnes pratiques de développement.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">OpenClassrooms • 2025</span>
-                                <a href="photos_projet/CertificationC# (1).pdf" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-                                    Voir le certificat
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Certification 3 -->
-                    <div class="gradient-border p-1 rounded-lg">
-                        <div class="bg-white p-6 rounded-lg h-full">
-                            <div class="flex items-center mb-4">
-                                <div class="gradient-bg p-3 rounded-full mr-4">
-                                    <i class="fas fa-certificate text-white text-xl"></i>
-                                </div>
-                                <h3 class="text-xl font-semibold text-gray-900">Certification SQL</h3>
-                            </div>
-                            <p class="text-gray-500 mb-4">
-                                Certification obtenue après une formation approfondie sur les bases de données relationnelles, 
-                                incluant la conception, la gestion et l'interrogation de bases de données avec SQL. 
-                                Cette certification met en avant des compétences essentielles pour manipuler et analyser des données efficacement.
-                            </p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-400">OpenClassrooms • 2025</span>
-                                <a href="photos_projet/CertificationSQL (1).pdf" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-                                    Voir le certificat
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Professional Journey Section -->
-    <section id="journey" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">
-                    Mon <span class="gradient-text">parcours professionnel</span>
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    Découvrez mon évolution professionnelle et les technologies que j'ai étudiées au cours des deux dernières années.
-                </p>
-            </div>
-
-            <div class="relative">
-                <div class="carousel flex overflow-x-auto space-x-6 snap-x snap-mandatory">
-                    <!-- Card 1 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fab fa-html5 text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">HTML & CSS</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Création de sites web modernes et responsives, en utilisant les bonnes pratiques de design.
-                        </p>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fab fa-php text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">PHP</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Développement de back-end pour des applications dynamiques et gestion des données.
-                        </p>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fab fa-wordpress text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">WordPress</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Personnalisation et création de thèmes et plugins pour des sites web dynamiques.
-                        </p>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fab fa-js text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">JavaScript</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Ajout d'interactivité et développement front-end avancé pour des expériences utilisateur riches.
-                        </p>
-                    </div>
-
-                    <!-- Card 5 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fas fa-database text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">SQL</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Gestion et interrogation de bases de données relationnelles pour des applications robustes.
-                        </p>
-                    </div>
-
-                    <!-- Card 6 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fab fa-symfony text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">Symfony</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Développement d'applications web robustes avec ce framework PHP avancé.
-                        </p>
-                    </div>
-
-                    <!-- Card 7 -->
-                    <div class="min-w-[300px] bg-white rounded-lg shadow-md p-6 snap-center">
-                        <div class="flex items-center mb-4">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fab fa-microsoft text-white text-2xl"></i>
-                            </div>
-                            <h3 class="text-lg font-semibold text-gray-900">C#</h3>
-                        </div>
-                        <p class="text-gray-500">
-                            Développement d'applications logicielles et gestion de projets avec des méthodologies modernes.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="lg:grid lg:grid-cols-2 lg:gap-16">
-                <div class="mb-12 lg:mb-0">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">
-                        Contactez-<span class="gradient-text">moi</span>
-                    </h2>
-                    <p class="text-gray-500 mb-8">
-                        Vous avez un commantaire à faire ou souhaitez discuter d'une opportunité ? N'hésitez pas à me
-                        contacter via ce formulaire ou directement par email.
-                    </p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-gray-900">Email</h4>
-                                <a href="mailto:contact@votrenom.com"
-                                    class="text-gray-500 hover:text-indigo-600">emmanuel.rogue@ynov.com</a>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fas fa-phone-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-gray-900">Téléphone</h4>
-                                <a href="tel:+33612345678" class="text-gray-500 hover:text-indigo-600">+33 6 95 03 70 99</a>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="gradient-bg p-3 rounded-full mr-4">
-                                <i class="fas fa-map-marker-alt text-white"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-medium text-gray-900">Localisation</h4>
-                                <p class="text-gray-500">Lille, France</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-12">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Réseaux sociaux</h3>
-                        <div class="flex space-x-4">
-                            <a href="https://www.linkedin.com/in/emmanuel-rogue-75935a301?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" aria-label="LinkedIn"
-                                class="social-btn bg-gray-100 p-3 rounded-full text-gray-700 hover:bg-blue-100 hover:text-blue-600">
-                                <i class="fab fa-linkedin-in text-lg"></i>
-                            </a>
-                            <a href="https://github.com/GRAVITYGIT75" aria-label="GitHub"
-                                class="social-btn bg-gray-100 p-3 rounded-full text-gray-700 hover:bg-gray-200 hover:text-gray-900">
-                                <i class="fab fa-github text-lg"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <form id="contact-form" class="bg-gray-50 p-8 rounded-lg shadow-sm">
-                        <input type="hidden" name="csrf_token"
-                            value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label for="firstname"
-                                    class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-                                <input type="text" id="firstname" name="firstname" required
-                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                                <p class="mt-1 text-xs text-red-600 hidden" id="firstname-error"></p>
-                            </div>
-                            <div>
-                                <label for="lastname" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-                                <input type="text" id="lastname" name="lastname" required
-                                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                                <p class="mt-1 text-xs text-red-600 hidden" id="lastname-error"></p>
-                            </div>
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="email" name="email" required
-                                class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                            <p class="mt-1 text-xs text-red-600 hidden" id="email-error"></p>
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Sujet</label>
-                            <select id="subject" name="subject"
-                                class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500">
-                                <option value="project">Demande de projet</option>
-                                <option value="collaboration">Proposition de collaboration</option>
-                                <option value="question">Question</option>
-                                <option value="other">Autre</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                            <textarea id="message" name="message" rows="5" required
-                                class="form-input w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"></textarea>
-                            <p class="mt-1 text-xs text-red-600 hidden" id="message-error"></p>
-                        </div>
-
-                        <!-- Honeypot field for spam protection -->
-                        <div class="hidden">
-                            <label for="website">Site web</label>
-                            <input type="text" id="website" name="website">
-                        </div>
-
-                        <div class="flex items-center mb-6">
-                            <input id="consent" name="consent" type="checkbox" required
-                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                            <label for="consent" class="ml-2 block text-sm text-gray-700">
-                                J'accepte que mes données soient utilisées pour me recontacter.
-                            </label>
-                        </div>
-
-                        <button type="submit"
-                            class="gradient-bg w-full px-6 py-3 rounded-md text-white font-medium hover:shadow-lg transition duration-300">
-                            Envoyer le message
-                        </button>
-                    </form>
-
-                    <div id="form-success" class="hidden mt-4 p-4 bg-green-50 text-green-700 rounded-md">
-                        <i class="fas fa-check-circle mr-2"></i>
-                        Votre message a bien été envoyé ! Je vous répondrai dans les plus brefs délais.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Emmanuel Rogue</h3>
-                    <p class="text-gray-400">
-                        Apprenti développeur web full stack passionné par la création d'expériences digitales mémorables.
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="text-lg font-semibold mb-4">Navigation</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Accueil</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition">À Propos</a></li>
-                        <li><a href="#projects" class="text-gray-400 hover:text-white transition">Projets</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">
-                    &copy; 2025 Emmanuem Rogue. Tous droits réservés.
-                </p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" aria-label="Mentions légales" class="text-gray-400 hover:text-white">Mentions
-                        légales</a>
-                    <a href="#" aria-label="Politique de confidentialité"
-                        class="text-gray-400 hover:text-white">Confidentialité</a>
-                    <a href="#" aria-label="Conditions d'utilisation"
-                        class="text-gray-400 hover:text-white">Conditions</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cookie Banner -->
-    <div id="cookie-banner" class="hidden fixed bottom-6 right-6 z-40 [--shadow:rgba(60,64,67,0.3)_0_1px_2px_0,rgba(60,64,67,0.15)_0_2px_6px_2px] w-4/5 h-auto rounded-2xl bg-white dark:bg-gray-800 [box-shadow:var(--shadow)] max-w-[300px] transition-all duration-300">
-        <div class="flex flex-col items-center justify-between pt-9 px-6 pb-6 relative">
-            <span class="relative mx-auto -mt-16 mb-8">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="46" width="65">
-                    <path stroke="#000" fill="#EAB789" d="M49.157 15.69L44.58.655l-12.422 1.96L21.044.654l-8.499 2.615-6.538 5.23-4.576 9.153v11.114l4.576 8.5 7.846 5.23 10.46 1.96 7.845-2.614 9.153 2.615 11.768-2.615 7.846-7.846 1.96-5.884.655-7.191-7.846-1.308-6.537-3.922z"></path>
-                    <path fill="#9C6750" d="M32.286 3.749c-6.94 3.65-11.69 11.053-11.69 19.591 0 8.137 4.313 15.242 10.724 19.052a20.513 20.513 0 01-8.723 1.937c-11.598 0-21-9.626-21-21.5 0-11.875 9.402-21.5 21-21.5 3.495 0 6.79.874 9.689 2.42z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                    <path fill="#634647" d="M64.472 20.305a.954.954 0 00-1.172-.824 4.508 4.508 0 01-3.958-.934.953.953 0 00-1.076-.11c-.46.252-.977.383-1.502.382a3.154 3.154 0 01-2.97-2.11.954.954 0 00-.833-.634 4.54 4.54 0 01-4.205-4.507c.002-.23.022-.46.06-.687a.952.952 0 00-.213-.767 3.497 3.497 0 01-.614-3.5.953.953 0 00-.382-1.138 3.522 3.522 0 01-1.5-3.992.951.951 0 00-.762-1.227A22.611 22.611 0 0032.3 2.16 22.41 22.41 0 0022.657.001a22.654 22.654 0 109.648 43.15 22.644 22.644 0 0032.167-22.847zM22.657 43.4a20.746 20.746 0 110-41.493c2.566-.004 5.11.473 7.501 1.407a22.64 22.64 0 00.003 38.682 20.6 20.6 0 01-7.504 1.404zm19.286 0a20.746 20.746 0 112.131-41.384 5.417 5.417 0 001.918 4.635 5.346 5.346 0 00-.133 1.182A5.441 5.441 0 0046.879 11a5.804 5.804 0 00-.028.568 6.456 6.456 0 005.38 6.345 5.053 5.053 0 006.378 2.472 6.412 6.412 0 004.05 1.12 20.768 20.768 0 01-20.716 21.897z"></path>
-                    <path fill="#644647" d="M54.962 34.3a17.719 17.719 0 01-2.602 2.378.954.954 0 001.14 1.53 19.637 19.637 0 002.884-2.634.955.955 0 00-1.422-1.274z"></path>
-                    <path stroke-width="1.8" stroke="#644647" fill="#845556" d="M44.5 32.829c-.512 0-1.574.215-2 .5-.426.284-.342.263-.537.736a2.59 2.59 0 104.98.99c0-.686-.458-1.241-.943-1.726-.485-.486-.814-.5-1.5-.5zm-30.916-2.5c-.296 0-.912.134-1.159.311-.246.177-.197.164-.31.459a1.725 1.725 0 00-.086.932c.058.312.2.6.41.825.21.226.477.38.768.442.291.062.593.03.867-.092s.508-.329.673-.594a1.7 1.7 0 00.253-.896c0-.428-.266-.774-.547-1.076-.281-.302-.471-.31-.869-.311zm17.805-11.375c-.143-.492-.647-1.451-1.04-1.78-.392-.33-.348-.255-.857-.31a2.588 2.588 0 10.441 5.06c.66-.194 1.064-.788 1.395-1.39.33-.601.252-.92.06-1.58zm-22 2c-.143-.492-.647-1.451-1.04-1.78-.391-.33-.347-.255-.856-.31a2.589 2.589 0 10.44 5.06c.66-.194 1.064-.788 1.395-1.39.33-.601.252-.92.06-1.58zM38.112 7.329c-.395 0-1.216.179-1.545.415-.328.236-.263.218-.415.611-.151.393-.19.826-.114 1.243.078.417.268.8.548 1.1.28.301.636.506 1.024.59.388.082.79.04 1.155-.123.366-.163.678-.438.898-.792.22-.354.337-.77.337-1.195 0-.57-.354-1.031-.73-1.434-.374-.403-.628-.415-1.158-.415zm-19.123.703c.023-.296-.062-.92-.219-1.18-.157-.26-.148-.21-.432-.347a1.726 1.726 0 00-.922-.159 1.654 1.654 0 00-.856.344 1.471 1.471 0 00-.501.73c-.085.285-.077.589.023.872.1.282.287.532.538.718a1.7 1.7 0 00.873.323c.427.033.793-.204 1.116-.46.324-.256.347-.445.38-.841z"></path>
-                    <path fill="#634647" d="M15.027 15.605a.954.954 0 00-1.553 1.108l1.332 1.863a.955.955 0 001.705-.77.955.955 0 00-.153-.34l-1.331-1.861z"></path>
-                    <path fill="#644647" d="M43.31 23.21a.954.954 0 101.553-1.11l-1.266-1.772a.954.954 0 10-1.552 1.11l1.266 1.772z"></path>
-                    <path fill="#634647" d="M19.672 35.374a.954.954 0 00-.954.953v2.363a.954.954 0 001.907 0v-2.362a.954.954 0 00-.953-.954z"></path>
-                    <path fill="#644647" d="M33.129 29.18l-2.803 1.065a.953.953 0 00-.053 1.764.957.957 0 00.73.022l2.803-1.065a.953.953 0 00-.677-1.783v-.003zm24.373-3.628l-2.167.823a.956.956 0 00-.054 1.764.954.954 0 00.73.021l2.169-.823a.954.954 0 10-.678-1.784v-.001z"></path>
-                </svg>
-            </span>
-
-            <h5 class="text-sm font-semibold mb-2 text-left mr-auto text-zinc-700 dark:text-gray-100">
-                Votre vie privée est importante
-            </h5>
-
-            <p class="w-full mb-4 text-sm text-justify text-gray-600 dark:text-gray-300">
-                Nous traitons vos données personnelles pour mesurer et améliorer nos services, et vous offrir une expérience personnalisée.
-                <br />
-                Pour plus d'informations, consultez notre
-                <a href="#" class="text-sm cursor-pointer font-semibold transition-colors hover:text-[#634647] dark:hover:text-[#ddad81] underline underline-offset-2">Politique de confidentialité</a>
-            </p>
-
-            <button id="cookie-more-options" class="mb-2 text-sm mr-auto text-zinc-600 dark:text-gray-300 cursor-pointer font-semibold transition-colors hover:text-[#634647] dark:hover:text-[#ddad81] hover:underline underline-offset-2">
-                Plus d'options
-            </button>
-            <button id="cookie-accept" class="absolute font-semibold right-6 bottom-6 cursor-pointer py-2 px-8 w-max break-keep text-sm rounded-lg transition-colors text-[#634647] hover:text-[#ddad81] bg-[#ddad81] hover:bg-[#634647]" type="button">
-                Accepter
-            </button>
-        </div>
+      <!-- Hamburger -->
+      <button id="mobile-menu-btn" class="md:hidden"
+        style="background:none;border:none;cursor:pointer;color:var(--text-primary);font-size:1.25rem;padding:.5rem"
+        aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
+        <i class="fas fa-bars" id="menu-icon"></i>
+      </button>
     </div>
+  </nav>
 
-    </footer>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" role="menu" aria-label="Menu mobile">
+    <a href="#home" role="menuitem">Accueil</a>
+    <a href="#about" role="menuitem">À Propos</a>
+    <a href="#projects" role="menuitem">Projets</a>
+    <a href="#certifications" role="menuitem">Certifications</a>
+    <a href="#journey" role="menuitem">Compétences</a>
+    <a href="#contact" role="menuitem">Contact</a>
+    <div style="display:flex;gap:.75rem;padding:.75rem 0">
+      <button class="toggle-btn active" id="btn-light-m" aria-label="Mode clair">☀️ Clair</button>
+      <button class="toggle-btn" id="btn-dark-m"  aria-label="Mode sombre">🌙 Sombre</button>
+    </div>
+  </div>
 
-    <button id="back-to-top"
-        class="fixed bottom-8 right-8 bg-white p-3 rounded-full shadow-lg text-gray-700 hover:text-indigo-600 transition duration-300 hidden">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  HERO                                                ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <section id="home" class="noise" aria-label="Présentation principale">
+    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
 
-    <script>
-        // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function () {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        });
+    <div class="section-inner" style="padding-top:8rem">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center" class="hero-content">
+        <!-- Text -->
+        <div>
+          <div class="hero-tag reveal">
+            <span class="hero-tag-dot"></span>
+            Disponible pour opportunités
+          </div>
 
-        // Back to top button
-        const backToTopButton = document.getElementById('back-to-top');
+          <h1 class="hero-title reveal reveal-delay-1">
+            Bonjour, je suis<br />
+            <span class="gradient-text" id="typed-text"></span><span id="typed-cursor" aria-hidden="true"></span>
+          </h1>
 
-        window.addEventListener('scroll', function () {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.remove('hidden');
-            } else {
-                backToTopButton.classList.add('hidden');
-            }
-        });
+          <p class="hero-subtitle reveal reveal-delay-2">
+            Développeur web Full Stack & Étudiant en Bachelor Cybersécurité à Ynov Campus Lille. Je conçois des interfaces modernes et sécurisées.
+          </p>
 
-        backToTopButton.addEventListener('click', function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+          <div class="hero-cta reveal reveal-delay-3">
+            <a href="#contact" class="btn-primary">
+              <i class="fas fa-paper-plane"></i>
+              Me contacter
+            </a>
+            <a href="#projects" class="btn-secondary">
+              <i class="fas fa-code"></i>
+              Voir mes projets
+            </a>
+          </div>
 
-        // Form validation
-        const contactForm = document.getElementById('contact-form');
-        const formSuccess = document.getElementById('form-success');
+          <div class="hero-social reveal reveal-delay-4">
+            <!-- Security: rel="noopener noreferrer" sur tous les liens externes -->
+            <a href="https://github.com/GRAVITYGIT75"
+               class="social-link" aria-label="Profil GitHub"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/emmanuel-rogue-75935a301"
+               class="social-link" aria-label="Profil LinkedIn"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://discord.com/channels/@me"
+               class="social-link" aria-label="Discord"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-discord"></i>
+            </a>
+          </div>
+        </div>
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', function (e) {
-                e.preventDefault();
+        <!-- Image -->
+        <div class="hero-image-wrap reveal reveal-delay-2" style="position:relative">
+          <div class="hero-img-frame">
+            <img src="photos_projet/maphoto2.jpg" alt="Emmanuel Rogue — Développeur Web & Cybersécurité"
+                 loading="eager" width="560" height="560" />
+          </div>
+          <div class="hero-badge">
+            <div class="hero-badge-icon"><i class="fas fa-shield-alt"></i></div>
+            <div>
+              <div class="hero-badge-text">Bachelor Cybersécurité</div>
+              <div class="hero-badge-sub">Ynov Campus Lille</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                // Reset errors
-                document.querySelectorAll('[id$="-error"]').forEach(el => {
-                    el.classList.add('hidden');
-                });
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  ABOUT                                               ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <section id="about" aria-label="À propos">
+    <div class="section-inner">
+      <div class="about-grid">
+        <!-- Image + déco -->
+        <div class="profile-wrap reveal">
+          <div class="profile-ring">
+            <img src="photos_projet/Emmanuel.ROGUE.JPG"
+                 alt="Photo de profil Emmanuel Rogue"
+                 width="220" height="220" loading="lazy" />
+          </div>
+        </div>
 
-                // Validate form
-                let isValid = true;
+        <!-- Texte -->
+        <div>
+          <div class="section-badge reveal"><i class="fas fa-user"></i> À propos</div>
+          <h2 class="section-title reveal reveal-delay-1">À propos de <span class="gradient-text">moi</span></h2>
 
-                // Firstname validation
-                const firstname = document.getElementById('firstname');
-                if (!firstname.value.trim()) {
-                    document.getElementById('firstname-error').textContent = 'Veuillez entrer votre prénom';
-                    document.getElementById('firstname-error').classList.remove('hidden');
-                    isValid = false;
-                }
+          <p style="font-size:.95rem;color:var(--text-secondary);line-height:1.8;margin-top:1rem" class="reveal reveal-delay-2">
+            Je suis Emmanuel, passionné par le développement web et désormais par la cybersécurité. Actuellement en
+            <strong style="color:var(--text-primary)">Bachelor 2 Cybersécurité à Ynov Campus Lille</strong>, je me forme
+            pour devenir expert en protection et analyse des systèmes, tout en gardant une vision Full Stack.
+            En dehors du code, je suis un grand sportif : tennis, escrime et judo.
+          </p>
 
-                // Lastname validation
-                const lastname = document.getElementById('lastname');
-                if (!lastname.value.trim()) {
-                    document.getElementById('lastname-error').textContent = 'Veuillez entrer votre nom';
-                    document.getElementById('lastname-error').classList.remove('hidden');
-                    isValid = false;
-                }
+          <!-- Stats -->
+          <div class="stats-grid reveal reveal-delay-3">
+            <div class="stat-card">
+              <div class="stat-number" data-count="9">0</div>
+              <div class="stat-label">Projets</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="3">0</div>
+              <div class="stat-label">Certifications</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number" data-count="2" data-suffix=" ans">0</div>
+              <div class="stat-label">Expérience</div>
+            </div>
+          </div>
 
-                // Email validation
-                const email = document.getElementById('email');
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(email.value)) {
-                    document.getElementById('email-error').textContent = 'Veuillez entrer une adresse email valide';
-                    document.getElementById('email-error').classList.remove('hidden');
-                    isValid = false;
-                }
+          <div style="margin-top:2rem" class="reveal reveal-delay-4">
+            <a href="mon_cvpro.pdf" class="btn-primary" download>
+              <i class="fas fa-download"></i>
+              Télécharger mon CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                // Message validation
-                const message = document.getElementById('message');
-                if (!message.value.trim()) {
-                    document.getElementById('message-error').textContent = 'Veuillez entrer votre message';
-                    document.getElementById('message-error').classList.remove('hidden');
-                    isValid = false;
-                }
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  PROJECTS                                            ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <section id="projects" aria-label="Projets">
+    <div class="section-inner">
+      <div style="text-align:center;max-width:600px;margin:0 auto 3rem" class="reveal">
+        <div class="section-badge"><i class="fas fa-folder-open"></i> Projets</div>
+        <h2 class="section-title">Mes <span class="gradient-text">réalisations</span></h2>
+        <p class="section-subtitle" style="margin:0 auto">Découvrez une sélection de mes projets récents.</p>
+      </div>
 
-                // Check honeypot field
-                const honeypot = document.getElementById('website');
-                if (honeypot.value) {
-                    // Probably a bot, don't process the form
-                    return false;
-                }
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card reveal reveal-delay-1" data-tilt>
+          <div class="card-img-wrap">
+            <img src="photos_projet/mathindex.webp" alt="Projet MathIndex" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Projet MathIndex</h3>
+            <p class="card-desc">Bibliothèque en ligne dédiée aux mathématiques pour enseignants et élèves, développée en groupe avec PHP et Node.js.</p>
+            <div class="card-tags">
+              <span class="tag tag-blue">PHP</span>
+              <span class="tag tag-green">Node.js</span>
+              <span class="tag tag-purple">HTML/CSS</span>
+            </div>
+            <a href="https://github.com/Orgalord-Darkness/Math_Index_Groupe4"
+               class="card-link" target="_blank" rel="noopener noreferrer" aria-label="Voir MathIndex sur GitHub">
+              Voir sur GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
 
-                if (isValid) {
-                    // Here you would typically send the form data to the server
-                    // For this example, we'll just show the success message
+        <!-- Project 2 -->
+        <div class="project-card reveal reveal-delay-2" data-tilt>
+          <div class="card-img-wrap">
+            <img src="photos_projet/projetcongefacilewebp.webp" alt="Projet Congé Facile" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Projet Congé Facile</h3>
+            <p class="card-desc">Application de gestion des congés en entreprise, développée avec Symfony, Tailwind CSS et Twig.</p>
+            <div class="card-tags">
+              <span class="tag tag-blue">Symfony</span>
+              <span class="tag tag-cyan">Tailwind</span>
+              <span class="tag tag-orange">Twig</span>
+            </div>
+            <a href="https://github.com/Fnafgameur/CongeFacile"
+               class="card-link" target="_blank" rel="noopener noreferrer" aria-label="Voir Congé Facile sur GitHub">
+              Voir sur GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
 
-                    // Simulate form submission
-                    setTimeout(() => {
-                        contactForm.reset();
-                        contactForm.classList.add('hidden');
-                        formSuccess.classList.remove('hidden');
+        <!-- Project 3 -->
+        <div class="project-card reveal reveal-delay-3" data-tilt>
+          <div class="card-img-wrap">
+            <img src="photos_projet/Pjocsharp.webp" alt="Projet Gestion de Théâtre" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">Gestion de Théâtre</h3>
+            <p class="card-desc">Application de gestion de réservations de places de théâtre en C#, réalisée avec la méthode AGILE en BTS SIO.</p>
+            <div class="card-tags">
+              <span class="tag tag-blue">C#</span>
+              <span class="tag tag-purple">AGILE</span>
+            </div>
+            <a href="https://github.com/MilanSY/Projet_GestionTheatre"
+               class="card-link" target="_blank" rel="noopener noreferrer" aria-label="Voir la Gestion de Théâtre sur GitHub">
+              Voir sur GitHub <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
 
-                        // Hide success message after 5 seconds
-                        setTimeout(() => {
-                            formSuccess.classList.add('hidden');
-                            contactForm.classList.remove('hidden');
-                        }, 5000);
-                    }, 1000);
-                }
-            });
+      <div style="text-align:center;margin-top:3rem" class="reveal">
+        <a href="mesprojet.html" class="btn-primary">
+          <i class="fas fa-folder-open"></i>
+          Voir tous mes projets
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  CERTIFICATIONS                                      ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <section id="certifications" aria-label="Certifications">
+    <div class="section-inner">
+      <div style="text-align:center;max-width:600px;margin:0 auto 3rem" class="reveal">
+        <div class="section-badge"><i class="fas fa-certificate"></i> Certifications</div>
+        <h2 class="section-title">Mes <span class="gradient-text">certifications</span></h2>
+        <p class="section-subtitle" style="margin:0 auto">Les formations qui ont validé mes compétences.</p>
+      </div>
+
+      <div class="certs-grid">
+        <div class="cert-card reveal reveal-delay-1">
+          <div class="cert-icon"><i class="fas fa-code"></i></div>
+          <div class="cert-title">Certification HTML/CSS</div>
+          <p class="cert-desc">Formation approfondie sur les bases du développement web, interfaces modernes et responsives.</p>
+          <div class="cert-footer">
+            <span class="cert-meta">OpenClassrooms · 2025</span>
+            <a href="photos_projet/CertificationHTMLCSS (1).pdf" class="cert-link"
+               target="_blank" rel="noopener noreferrer" aria-label="Voir le certificat HTML/CSS">
+              Voir <i class="fas fa-external-link-alt" style="font-size:.65rem"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-2">
+          <div class="cert-icon"><i class="fas fa-laptop-code"></i></div>
+          <div class="cert-title">Certification C Sharp</div>
+          <p class="cert-desc">Formation sur le langage C# et le développement d'applications robustes orientées objet.</p>
+          <div class="cert-footer">
+            <span class="cert-meta">OpenClassrooms · 2025</span>
+            <a href="photos_projet/CertificationC# (1).pdf" class="cert-link"
+               target="_blank" rel="noopener noreferrer" aria-label="Voir le certificat C#">
+              Voir <i class="fas fa-external-link-alt" style="font-size:.65rem"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="cert-card reveal reveal-delay-3">
+          <div class="cert-icon"><i class="fas fa-database"></i></div>
+          <div class="cert-title">Certification SQL</div>
+          <p class="cert-desc">Formation sur les bases de données relationnelles, conception, gestion et interrogation avec SQL.</p>
+          <div class="cert-footer">
+            <span class="cert-meta">OpenClassrooms · 2025</span>
+            <a href="photos_projet/CertificationSQL (1).pdf" class="cert-link"
+               target="_blank" rel="noopener noreferrer" aria-label="Voir le certificat SQL">
+              Voir <i class="fas fa-external-link-alt" style="font-size:.65rem"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  SKILLS                                              ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <section id="journey" aria-label="Compétences">
+    <div class="section-inner">
+      <div style="text-align:center;max-width:600px;margin:0 auto 3rem" class="reveal">
+        <div class="section-badge"><i class="fas fa-tools"></i> Compétences</div>
+        <h2 class="section-title">Mon <span class="gradient-text">parcours technique</span></h2>
+        <p class="section-subtitle" style="margin:0 auto">Les technologies maîtrisées au cours de mon parcours.</p>
+      </div>
+
+      <div class="skills-track" role="list" aria-label="Liste des compétences">
+        <div class="skill-card reveal" role="listitem">
+          <div class="skill-card-icon"><i class="fab fa-html5"></i></div>
+          <div class="skill-card-title">HTML & CSS</div>
+          <div class="skill-card-desc">Sites modernes et responsives, bonnes pratiques de design.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="90"></div></div>
+        </div>
+        <div class="skill-card reveal reveal-delay-1" role="listitem">
+          <div class="skill-card-icon"><i class="fab fa-js"></i></div>
+          <div class="skill-card-title">JavaScript</div>
+          <div class="skill-card-desc">Interactivité et développement front-end avancé.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="75"></div></div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2" role="listitem">
+          <div class="skill-card-icon"><i class="fab fa-php"></i></div>
+          <div class="skill-card-title">PHP</div>
+          <div class="skill-card-desc">Back-end pour applications dynamiques et gestion des données.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="70"></div></div>
+        </div>
+        <div class="skill-card reveal reveal-delay-3" role="listitem">
+          <div class="skill-card-icon"><i class="fas fa-database"></i></div>
+          <div class="skill-card-title">SQL</div>
+          <div class="skill-card-desc">Gestion et interrogation de bases de données relationnelles.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="72"></div></div>
+        </div>
+        <div class="skill-card reveal reveal-delay-4" role="listitem">
+          <div class="skill-card-icon"><i class="fab fa-symfony"></i></div>
+          <div class="skill-card-title">Symfony</div>
+          <div class="skill-card-desc">Applications web robustes avec ce framework PHP avancé.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="60"></div></div>
+        </div>
+        <div class="skill-card reveal" role="listitem">
+          <div class="skill-card-icon"><i class="fab fa-microsoft"></i></div>
+          <div class="skill-card-title">C#</div>
+          <div class="skill-card-desc">Développement logiciel et méthodes agiles.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="65"></div></div>
+        </div>
+        <div class="skill-card reveal reveal-delay-1" role="listitem">
+          <div class="skill-card-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="skill-card-title">Cybersécurité</div>
+          <div class="skill-card-desc">Analyse, protection et sécurisation des systèmes.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="55"></div></div>
+        </div>
+        <div class="skill-card reveal reveal-delay-2" role="listitem">
+          <div class="skill-card-icon"><i class="fab fa-wordpress"></i></div>
+          <div class="skill-card-title">WordPress</div>
+          <div class="skill-card-desc">Thèmes, plugins et sites web dynamiques.</div>
+          <div class="skill-bar"><div class="skill-fill" data-level="65"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  CONTACT                                             ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <section id="contact" aria-label="Contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <!-- Infos -->
+        <div>
+          <div class="section-badge reveal"><i class="fas fa-envelope"></i> Contact</div>
+          <h2 class="section-title reveal reveal-delay-1">Contactez-<span class="gradient-text">moi</span></h2>
+          <p style="font-size:.9rem;color:var(--text-secondary);line-height:1.7;margin-top:1rem;margin-bottom:2rem" class="reveal reveal-delay-2">
+            Vous avez un projet ou une opportunité ? N'hésitez pas à me contacter.
+          </p>
+
+          <div style="display:flex;flex-direction:column;gap:1rem">
+            <div class="contact-info-item reveal reveal-delay-2">
+              <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <!-- Obfuscation légère : l'email est visible mais pas en href direct -->
+                <span class="contact-info-value" id="email-reveal" style="cursor:pointer" title="Cliquez pour afficher">
+                  [cliquez pour afficher]
+                </span>
+              </div>
+            </div>
+            <div class="contact-info-item reveal reveal-delay-3">
+              <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div>
+                <div class="contact-info-label">Localisation</div>
+                <span class="contact-info-value">Lille, France</span>
+              </div>
+            </div>
+            <div class="contact-info-item reveal reveal-delay-4">
+              <div class="contact-info-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div>
+                <div class="contact-info-label">Formation</div>
+                <span class="contact-info-value">Ynov Campus Lille</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:.75rem;margin-top:2rem" class="reveal">
+            <a href="https://www.linkedin.com/in/emmanuel-rogue-75935a301"
+               class="social-link" aria-label="LinkedIn"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://github.com/GRAVITYGIT75"
+               class="social-link" aria-label="GitHub"
+               target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Formulaire sécurisé -->
+        <div class="reveal reveal-delay-2">
+          <form id="contact-form" class="contact-form" novalidate autocomplete="off"
+                aria-label="Formulaire de contact">
+            <!--
+              NOTE SÉCURITÉ :
+              - Token CSRF à générer côté serveur (PHP session ou JWT) dans une vraie implémentation.
+              - Validation OBLIGATOIRE côté serveur (ne jamais faire confiance au client).
+              - Utiliser PDO prepared statements pour toute interaction BDD.
+              - Rate-limiting sur le handler serveur (ex: 5 requêtes/minute par IP).
+            -->
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstname" class="form-label">Prénom *</label>
+                <input type="text" id="firstname" name="firstname"
+                       class="form-input" autocomplete="off"
+                       maxlength="50" required
+                       aria-required="true" aria-describedby="firstname-error" />
+                <span class="form-error" id="firstname-error" role="alert"></span>
+              </div>
+              <div class="form-group">
+                <label for="lastname" class="form-label">Nom *</label>
+                <input type="text" id="lastname" name="lastname"
+                       class="form-input" autocomplete="off"
+                       maxlength="50" required
+                       aria-required="true" aria-describedby="lastname-error" />
+                <span class="form-error" id="lastname-error" role="alert"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email *</label>
+              <input type="email" id="email" name="email"
+                     class="form-input" autocomplete="off"
+                     maxlength="254" required
+                     aria-required="true" aria-describedby="email-error" />
+              <span class="form-error" id="email-error" role="alert"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="subject" class="form-label">Sujet</label>
+              <select id="subject" name="subject" class="form-select">
+                <option value="project">Demande de projet</option>
+                <option value="collaboration">Proposition de collaboration</option>
+                <option value="question">Question</option>
+                <option value="other">Autre</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Message *</label>
+              <textarea id="message" name="message"
+                        class="form-textarea"
+                        maxlength="2000" required
+                        aria-required="true" aria-describedby="message-error"></textarea>
+              <span class="form-error" id="message-error" role="alert"></span>
+            </div>
+
+            <!-- Honeypot — champ caché, doit rester vide (OWASP anti-spam) -->
+            <div style="position:absolute;left:-9999px;top:-9999px" aria-hidden="true">
+              <label for="hp_field">Ne pas remplir</label>
+              <input type="text" id="hp_field" name="hp_field"
+                     tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-check">
+              <input type="checkbox" id="consent" name="consent" required aria-required="true" />
+              <label for="consent">J'accepte que mes données soient utilisées pour me recontacter (RGPD).</label>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center">
+              <i class="fas fa-paper-plane"></i>
+              <span id="btn-text">Envoyer le message</span>
+            </button>
+          </form>
+
+          <div class="form-success" id="form-success" role="status" aria-live="polite">
+            <i class="fas fa-check-circle"></i>
+            Message envoyé avec succès ! Je vous répondrai rapidement.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  FOOTER                                              ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="nav-logo">Rogue Emmanuel</span>
+        <nav class="footer-links" aria-label="Liens de pied de page">
+          <a href="#home">Accueil</a>
+          <a href="#about">À Propos</a>
+          <a href="#projects">Projets</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">&copy; 2025 Emmanuel Rogue — Tous droits réservés.</span>
+        <nav style="display:flex;gap:1.5rem" aria-label="Liens légaux">
+          <a href="#" style="font-size:.8rem;color:var(--text-muted);text-decoration:none" 
+             class="footer-links">Mentions légales</a>
+          <a href="#" style="font-size:.8rem;color:var(--text-muted);text-decoration:none"
+             class="footer-links">Confidentialité</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  COOKIE BANNER (sans alert() — sécurisé)            ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <div id="cookie-banner" role="dialog" aria-modal="false"
+       aria-label="Consentement aux cookies" aria-live="polite">
+    <div class="cookie-title">🍪 Votre vie privée</div>
+    <p class="cookie-text">
+      Nous utilisons des cookies pour améliorer votre expérience.
+      <a href="#" style="color:var(--accent-1);text-decoration:none">Politique de confidentialité</a>
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="btn-primary" style="padding:.6rem 1.25rem;font-size:.82rem">
+        Accepter
+      </button>
+      <button id="cookie-decline" class="btn-secondary" style="padding:.6rem 1.25rem;font-size:.82rem">
+        Refuser
+      </button>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  JAVASCRIPT (sécurisé, pas d'innerHTML dynamique)    ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <script>
+    'use strict';
+
+    /* ─────────────────────────────────────────────
+       UTILITAIRES SÉCURITÉ
+    ───────────────────────────────────────────── */
+    /**
+     * Escape HTML pour prévenir XSS
+     * Toujours utiliser cette fonction avant d'insérer du texte utilisateur dans le DOM.
+     * @param {string} str
+     * @returns {string}
+     */
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.appendChild(document.createTextNode(String(str)));
+      return div.innerHTML;
+    }
+
+    /**
+     * Valide une adresse email (RFC 5321 simplifié)
+     * @param {string} email
+     * @returns {boolean}
+     */
+    function isValidEmail(email) {
+      return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/.test(email);
+    }
+
+    /**
+     * Valide qu'une chaîne ne contient que des caractères alphanumériques et espaces (prénom/nom)
+     * @param {string} name
+     * @returns {boolean}
+     */
+    function isValidName(name) {
+      return /^[\p{L}\p{M}'\-\s]{2,50}$/u.test(name.trim());
+    }
+
+    /* ─────────────────────────────────────────────
+       SCROLL PROGRESS
+    ───────────────────────────────────────────── */
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      const pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    /* ─────────────────────────────────────────────
+       CUSTOM CURSOR
+    ───────────────────────────────────────────── */
+    if (window.matchMedia('(pointer: fine)').matches) {
+      const cursor    = document.getElementById('cursor');
+      const cursorDot = document.getElementById('cursor-dot');
+      let mouseX = -100, mouseY = -100;
+      let curX = -100, curY = -100;
+
+      document.addEventListener('mousemove', e => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        cursorDot.style.left = mouseX + 'px';
+        cursorDot.style.top  = mouseY + 'px';
+      });
+
+      // Lerp pour le curseur principal (effet smooth)
+      function animateCursor() {
+        curX += (mouseX - curX) * 0.15;
+        curY += (mouseY - curY) * 0.15;
+        cursor.style.left = curX + 'px';
+        cursor.style.top  = curY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      // Agrandir sur les éléments interactifs
+      const hoverTargets = 'a, button, [data-tilt], input, textarea, select, label';
+      document.querySelectorAll(hoverTargets).forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+    }
+
+    /* ─────────────────────────────────────────────
+       TYPING EFFECT (Hero)
+    ───────────────────────────────────────────── */
+    (function typingEffect() {
+      const el      = document.getElementById('typed-text');
+      const phrases = ['Rogue Emmanuel', 'Développeur Web', 'Étudiant en Cybersécurité'];
+      let   pIdx = 0, cIdx = 0, deleting = false;
+
+      function type() {
+        const phrase = phrases[pIdx];
+        // Utiliser textContent (jamais innerHTML) pour éviter XSS
+        el.textContent = deleting ? phrase.substring(0, cIdx--) : phrase.substring(0, cIdx++);
+
+        let delay = deleting ? 60 : 100;
+
+        if (!deleting && cIdx === phrase.length + 1) {
+          delay = 2000;
+          deleting = true;
+        } else if (deleting && cIdx === 0) {
+          deleting = false;
+          pIdx = (pIdx + 1) % phrases.length;
+          delay = 400;
         }
+        setTimeout(type, delay);
+      }
+      setTimeout(type, 800);
+    })();
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-
-                    // Calculate offset based on navbar height
-                    const navbarHeight = document.querySelector('nav').offsetHeight;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Dark mode toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-            htmlElement.classList.add('dark-mode');
-            themeToggle.checked = true;
+    /* ─────────────────────────────────────────────
+       SCROLL REVEAL (Intersection Observer)
+    ───────────────────────────────────────────── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-        // Theme toggle event listener
-        themeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                htmlElement.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                htmlElement.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
-        });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // Cookie Banner Management
-        const cookieBanner = document.getElementById('cookie-banner');
-        const cookieAcceptBtn = document.getElementById('cookie-accept');
-        const cookieMoreOptionsBtn = document.getElementById('cookie-more-options');
+    /* ─────────────────────────────────────────────
+       COUNT-UP ANIMATION (Stats)
+    ───────────────────────────────────────────── */
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el     = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        const step   = Math.ceil(target / 30);
+        let   count  = 0;
 
-        // Check if user has already accepted cookies
-        const cookieConsent = localStorage.getItem('cookieConsent');
-        if (!cookieConsent) {
-            // Show banner after 1 second
-            setTimeout(() => {
-                cookieBanner.classList.remove('hidden');
-            }, 1000);
-        }
+        const timer = setInterval(() => {
+          count = Math.min(count + step, target);
+          el.textContent = count + suffix;
+          if (count >= target) clearInterval(timer);
+        }, 40);
 
-        // Accept cookies button
-        cookieAcceptBtn.addEventListener('click', function() {
-            localStorage.setItem('cookieConsent', 'accepted');
-            cookieBanner.classList.add('hidden');
-        });
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
 
-        // More options button
-        cookieMoreOptionsBtn.addEventListener('click', function() {
-            alert('Options supplémentaires des cookies:\n\n- Cookies analytiques\n- Cookies marketing\n- Cookies de performance\n\nPour une gestion complète, consultez notre Politique de confidentialité.');
-        });
-    </script>
+    document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+    /* ─────────────────────────────────────────────
+       SKILL BARS ANIMATION
+    ───────────────────────────────────────────── */
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const fill  = entry.target;
+        const level = fill.dataset.level;
+        setTimeout(() => { fill.style.width = level + '%'; }, 300);
+        skillObserver.unobserve(fill);
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skill-fill').forEach(el => skillObserver.observe(el));
+
+    /* ─────────────────────────────────────────────
+       3D TILT on Project Cards
+    ───────────────────────────────────────────── */
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect   = card.getBoundingClientRect();
+        const cx     = rect.left + rect.width / 2;
+        const cy     = rect.top  + rect.height / 2;
+        const dx     = (e.clientX - cx) / (rect.width  / 2);
+        const dy     = (e.clientY - cy) / (rect.height / 2);
+        card.style.transform = `perspective(800px) rotateX(${-dy * 6}deg) rotateY(${dx * 6}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+        card.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
+        setTimeout(() => { card.style.transition = ''; }, 400);
+      });
+    });
+
+    /* ─────────────────────────────────────────────
+       NAVIGATION — Mobile Menu
+    ───────────────────────────────────────────── */
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu    = document.getElementById('mobile-menu');
+    const menuIcon      = document.getElementById('menu-icon');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+      menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+    });
+
+    // Fermer le menu mobile au clic sur un lien
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        menuIcon.className = 'fas fa-bars';
+      });
+    });
+
+    /* ─────────────────────────────────────────────
+       SMOOTH SCROLL
+    ───────────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#' || href.length <= 1) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const navH = document.querySelector('nav').offsetHeight;
+        const top  = target.getBoundingClientRect().top + window.scrollY - navH;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+
+    /* ─────────────────────────────────────────────
+       THEME TOGGLE
+    ───────────────────────────────────────────── */
+    const html     = document.documentElement;
+    const btnLight = document.getElementById('btn-light');
+    const btnDark  = document.getElementById('btn-dark');
+    const btnLightM = document.getElementById('btn-light-m');
+    const btnDarkM  = document.getElementById('btn-dark-m');
+
+    function setTheme(dark) {
+      if (dark) {
+        html.classList.add('dark');
+        btnDark.classList.add('active'); btnLight.classList.remove('active');
+        btnDarkM.classList.add('active'); btnLightM.classList.remove('active');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        html.classList.remove('dark');
+        btnLight.classList.add('active'); btnDark.classList.remove('active');
+        btnLightM.classList.add('active'); btnDarkM.classList.remove('active');
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    // Init theme
+    setTheme(localStorage.getItem('theme') === 'dark');
+
+    btnDark.addEventListener('click',   () => setTheme(true));
+    btnLight.addEventListener('click',  () => setTheme(false));
+    btnDarkM.addEventListener('click',  () => setTheme(true));
+    btnLightM.addEventListener('click', () => setTheme(false));
+
+    /* ─────────────────────────────────────────────
+       BACK TO TOP
+    ───────────────────────────────────────────── */
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ─────────────────────────────────────────────
+       EMAIL REVEAL (obfuscation légère — anti-scraping)
+    ───────────────────────────────────────────── */
+    document.getElementById('email-reveal').addEventListener('click', function() {
+      // Assemblage côté client pour contourner les crawlers simples
+      const parts = ['emmanuel', '.', 'rogue', '@', 'ynov', '.', 'com'];
+      const email = parts.join('');
+      const link  = document.createElement('a');
+      link.href        = 'mailto:' + email;
+      link.textContent = email;
+      link.className   = 'contact-info-value';
+      this.replaceWith(link);
+    });
+
+    /* ─────────────────────────────────────────────
+       CONTACT FORM (validation sécurisée)
+    ───────────────────────────────────────────── */
+    const form        = document.getElementById('contact-form');
+    const successMsg  = document.getElementById('form-success');
+
+    function showError(fieldId, msg) {
+      const input = document.getElementById(fieldId);
+      const error = document.getElementById(fieldId + '-error');
+      if (input)  input.classList.add('error');
+      if (error)  { error.textContent = msg; error.classList.add('show'); }
+    }
+
+    function clearErrors() {
+      form.querySelectorAll('.form-input, .form-textarea').forEach(el => el.classList.remove('error'));
+      form.querySelectorAll('.form-error').forEach(el => { el.textContent = ''; el.classList.remove('show'); });
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      // Vérification honeypot (anti-bot)
+      if (document.getElementById('hp_field').value !== '') return;
+
+      const firstname = document.getElementById('firstname').value.trim();
+      const lastname  = document.getElementById('lastname').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const message   = document.getElementById('message').value.trim();
+      const consent   = document.getElementById('consent').checked;
+
+      let valid = true;
+
+      if (!isValidName(firstname)) {
+        showError('firstname', 'Prénom invalide (2–50 caractères, lettres uniquement).');
+        valid = false;
+      }
+      if (!isValidName(lastname)) {
+        showError('lastname', 'Nom invalide (2–50 caractères, lettres uniquement).');
+        valid = false;
+      }
+      if (!isValidEmail(email)) {
+        showError('email', 'Adresse email invalide.');
+        valid = false;
+      }
+      if (message.length < 10 || message.length > 2000) {
+        showError('message', 'Le message doit contenir entre 10 et 2000 caractères.');
+        valid = false;
+      }
+      if (!consent) {
+        alert('Veuillez accepter la politique de confidentialité.');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // UX : état de chargement
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      document.getElementById('btn-text').textContent = 'Envoi en cours…';
+
+      // Simulation envoi (remplacer par un vrai fetch() vers votre back-end PHP)
+      setTimeout(() => {
+        form.style.display = 'none';
+        successMsg.classList.add('show');
+        setTimeout(() => {
+          form.reset();
+          form.style.display = '';
+          successMsg.classList.remove('show');
+          btn.disabled = false;
+          document.getElementById('btn-text').textContent = 'Envoyer le message';
+        }, 5000);
+      }, 900);
+    });
+
+    /* ─────────────────────────────────────────────
+       COOKIE BANNER (sans alert())
+    ───────────────────────────────────────────── */
+    const cookieBanner  = document.getElementById('cookie-banner');
+    const cookieAccept  = document.getElementById('cookie-accept');
+    const cookieDecline = document.getElementById('cookie-decline');
+
+    if (!localStorage.getItem('cookieConsent')) {
+      setTimeout(() => { cookieBanner.classList.add('show'); }, 1500);
+    }
+
+    function dismissCookie(value) {
+      localStorage.setItem('cookieConsent', value);
+      cookieBanner.style.transition = 'opacity .3s, transform .3s';
+      cookieBanner.style.opacity    = '0';
+      cookieBanner.style.transform  = 'translateX(-50%) translateY(120px)';
+      setTimeout(() => { cookieBanner.style.display = 'none'; }, 300);
+    }
+
+    cookieAccept.addEventListener('click',  () => dismissCookie('accepted'));
+    cookieDecline.addEventListener('click', () => dismissCookie('declined'));
+
+    /* ─────────────────────────────────────────────
+       DARK MODE CSS variables inject
+    ───────────────────────────────────────────── */
+    // Les variables CSS dans :root et html.dark gèrent le dark mode nativement
+    // Aucun inline style dynamique n'est nécessaire ici.
+
+  </script>
 </body>
 
 </html>

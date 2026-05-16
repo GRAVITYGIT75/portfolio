@@ -1,263 +1,811 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tous mes projets | Rogue Emmanuel</title>
-    <link href="styles.css" rel="stylesheet" type="text/css" />
-    <link href="theme.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  SECURITY HEADERS (OWASP)                            ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self';
+             script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com;
+             style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+             font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+             img-src 'self' data: blob:;
+             connect-src 'self';
+             frame-ancestors 'none';" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta name="description" content="Tous les projets de Emmanuel Rogue — développeur web & cybersécurité." />
+  <title>Tous mes projets | Rogue Emmanuel</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer" />
+
+  <style>
+    /* ─── Design System ─── */
+    :root {
+      --font-display: 'Outfit', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+      --bg-base:       #f8f9ff;
+      --bg-surface:    #ffffff;
+      --bg-muted:      #f1f3fb;
+      --text-primary:  #0b0d1a;
+      --text-secondary:#4a5070;
+      --text-muted:    #8890aa;
+      --border:        #e2e5f0;
+      --nav-bg:        rgba(255,255,255,0.88);
+      --accent-1:      #3b5bdb;
+      --accent-2:      #0ea5e9;
+      --accent-glow:   rgba(59,91,219,0.22);
+      --gradient:      linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    }
+    html.dark {
+      --bg-base:       #070910;
+      --bg-surface:    #0e1120;
+      --bg-muted:      #131729;
+      --text-primary:  #e8eaf6;
+      --text-secondary:#9ba3c4;
+      --text-muted:    #5a6382;
+      --border:        #1e2340;
+      --nav-bg:        rgba(7,9,16,0.92);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html  { scroll-behavior: smooth; }
+    body  {
+      font-family: var(--font-display);
+      background: var(--bg-base);
+      color: var(--text-primary);
+      transition: background .3s, color .3s;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    @media (max-width: 768px) { body { cursor: auto; } }
+
+    /* ─── Scroll Progress ─── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      height: 3px; width: 0%;
+      background: var(--gradient);
+      transition: width .1s linear;
+    }
+
+    /* ─── Custom Cursor ─── */
+    #cursor, #cursor-dot {
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 10000;
+      transform: translate(-50%, -50%);
+    }
+    #cursor {
+      width: 36px; height: 36px;
+      border: 2px solid var(--accent-1);
+      border-radius: 50%;
+      transition: width .2s, height .2s, border-color .2s;
+      mix-blend-mode: difference;
+    }
+    #cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--accent-2);
+      border-radius: 50%;
+    }
+    body.cursor-hover #cursor { width: 52px; height: 52px; border-color: var(--accent-2); }
+    @media (max-width: 768px) { #cursor, #cursor-dot { display: none; } }
+
+    /* ─── Nav — ciblée par ID uniquement ─── */
+    nav#main-nav {
+      position: sticky; top: 0; z-index: 500;
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s, border-color .3s;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-weight: 800; font-size: 1.2rem;
+      background: var(--gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-decoration: none; letter-spacing: -0.03em;
+    }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      display: flex; align-items: center;
+      background: var(--bg-muted); border: 1px solid var(--border);
+      border-radius: 999px; padding: 3px;
+      cursor: pointer;
+    }
+    .toggle-btn {
+      display: flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 50%;
+      font-size: .75rem; color: var(--text-muted);
+      background: transparent; border: none; cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .toggle-btn.active { background: var(--gradient); color: white; }
+
+    .nav-back {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .5rem 1rem; border-radius: 10px;
+      font-size: .85rem; font-weight: 600;
+      color: var(--text-secondary); text-decoration: none;
+      border: 1px solid var(--border); background: var(--bg-muted);
+      transition: color .2s, border-color .2s, transform .2s;
+    }
+    .nav-back:hover { color: var(--accent-1); border-color: var(--accent-1); transform: translateX(-2px); }
+
+    /* ─── Page Header ─── */
+    .page-header {
+      position: relative; overflow: hidden;
+      background: var(--bg-base);
+      padding: 4rem 1.5rem 2rem;
+      text-align: center;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: .35;
+      mask-image: radial-gradient(ellipse 80% 100% at 50% 0%, black 30%, transparent 100%);
+    }
+    .page-header-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+
+    /* ─── Filter Bar ─── */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: .5rem;
+      justify-content: center;
+      padding: 1.5rem;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .filter-btn {
+      padding: .4rem 1rem; border-radius: 999px;
+      font-size: .8rem; font-weight: 600; font-family: var(--font-mono);
+      border: 1px solid var(--border);
+      background: var(--bg-surface); color: var(--text-secondary);
+      cursor: pointer; transition: all .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gradient); color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    /* ─── Section ─── */
+    .section-inner {
+      max-width: 1280px; margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    /* ─── Cards Grid ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 1024px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px)  { .projects-grid { grid-template-columns: 1fr; } }
+
+    /* Carte projet */
+    .project-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      transition: border-color .3s, box-shadow .3s, transform .3s, opacity .4s;
+      will-change: transform;
+      display: flex; flex-direction: column;
+    }
+    .project-card.hidden-card {
+      display: none;
+    }
+    .project-card:hover {
+      border-color: rgba(59,91,219,.4);
+      box-shadow: 0 20px 40px rgba(59,91,219,.12);
+    }
+
+    .card-img-wrap { overflow: hidden; height: 200px; position: relative; }
+    .card-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+      display: block;
+    }
+    .project-card:hover .card-img-wrap img { transform: scale(1.06); }
+
+    /* Badge overlay sur l'image */
+    .card-badge {
+      position: absolute; top: .75rem; right: .75rem;
+      background: rgba(7,9,16,.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px; padding: .25rem .6rem;
+      font-size: .65rem; font-weight: 700; font-family: var(--font-mono);
+      color: white; letter-spacing: .05em;
+    }
+
+    .card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .card-title { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: .4rem; }
+    .card-desc  {
+      font-size: .82rem; color: var(--text-secondary); line-height: 1.65;
+      margin-bottom: 1rem; flex: 1;
+    }
+    .card-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.2rem; }
+
+    .tag {
+      padding: .18rem .6rem; border-radius: 999px;
+      font-size: .68rem; font-weight: 700; font-family: var(--font-mono);
+    }
+    .tag-blue   { background: rgba(59,91,219,.1);   color: #3b5bdb; border: 1px solid rgba(59,91,219,.25); }
+    .tag-cyan   { background: rgba(14,165,233,.1);  color: #0ea5e9; border: 1px solid rgba(14,165,233,.25); }
+    .tag-purple { background: rgba(139,92,246,.1);  color: #8b5cf6; border: 1px solid rgba(139,92,246,.25); }
+    .tag-green  { background: rgba(16,185,129,.1);  color: #10b981; border: 1px solid rgba(16,185,129,.25); }
+    .tag-orange { background: rgba(245,158,11,.1);  color: #f59e0b; border: 1px solid rgba(245,158,11,.25); }
+    .tag-red    { background: rgba(239,68,68,.1);   color: #ef4444; border: 1px solid rgba(239,68,68,.25); }
+    .tag-gray   { background: rgba(107,114,128,.1); color: #6b7280; border: 1px solid rgba(107,114,128,.25); }
+    .tag-yellow { background: rgba(234,179,8,.1);   color: #ca8a04; border: 1px solid rgba(234,179,8,.25); }
+
+    .card-link {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .82rem; font-weight: 700; font-family: var(--font-mono);
+      color: var(--accent-1); text-decoration: none;
+      transition: gap .2s, color .2s;
+    }
+    .card-link:hover { gap: .7rem; color: var(--accent-2); }
+
+    /* ─── Gradient utilities ─── */
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .gradient-bg { background: var(--gradient); }
+
+    /* ─── Section badge ─── */
+    .section-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-mono); font-size: .68rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent-1);
+      background: rgba(59,91,219,.08); border: 1px solid rgba(59,91,219,.2);
+      border-radius: 999px; padding: .28rem .85rem;
+      margin-bottom: .75rem;
+    }
+
+    /* ─── Buttons ─── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem; border-radius: 12px;
+      font-weight: 600; font-size: .875rem;
+      background: var(--gradient); color: white;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(59,91,219,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,91,219,.42); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem; border-radius: 12px;
+      font-weight: 600; font-size: .875rem;
+      color: var(--text-primary); text-decoration: none;
+      border: 1px solid var(--border); background: var(--bg-surface);
+      transition: border-color .2s, transform .2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent-1); transform: translateY(-2px); }
+
+    /* ─── Reveal ─── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .65s cubic-bezier(.4,0,.2,1), transform .65s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.revealed { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .08s; }
+    .reveal-delay-2 { transition-delay: .16s; }
+    .reveal-delay-3 { transition-delay: .24s; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--bg-base);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem; text-align: center;
+    }
+    .footer-copy {
+      font-size: .8rem; color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* ─── Back to Top ─── */
+    #back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 400;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--gradient); color: white; border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(59,91,219,.35);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .3s, transform .3s;
+      pointer-events: none;
+    }
+    #back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    #back-to-top:hover   { transform: translateY(-2px); }
+
+    /* ─── Empty state ─── */
+    #empty-state {
+      display: none; grid-column: 1/-1;
+      text-align: center; padding: 4rem 2rem;
+    }
+    #empty-state.show { display: block; }
+    .empty-icon {
+      font-size: 3rem; margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+
+    /* ─── Stats Bar ─── */
+    .stats-bar {
+      display: flex; gap: 2rem; flex-wrap: wrap;
+      max-width: 1280px; margin: 0 auto;
+      padding: 1rem 1.5rem 0;
+    }
+    .stats-bar-item { font-size: .8rem; color: var(--text-muted); font-family: var(--font-mono); }
+    .stats-bar-item strong { color: var(--accent-1); font-weight: 700; }
+
+    /* ─── Orbs ─── */
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none; opacity: .1;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--accent-1); top: -200px; right: -150px; }
+    .orb-2 { width: 300px; height: 300px; background: var(--accent-2); bottom: -100px; left: -80px; }
+  </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation simple -->
-    <nav class="w-full bg-white shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold gradient-text">Rogue Emmanuel</a>
-            <div class="flex items-center space-x-4">
-                <label class="ui-switch">
-                    <input type="checkbox" id="theme-toggle">
-                    <div class="slider">
-                        <div class="circle"></div>
-                    </div>
-                </label>
-                <a href="index.html#projects" class="text-gray-700 hover:text-indigo-600">Retour au portfolio</a>
-            </div>
-        </div>
-    </nav>
+<body>
+  <!-- Scroll Progress -->
+  <div id="scroll-progress" role="progressbar" aria-hidden="true"></div>
 
-    <!-- Projects Grid -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900">
-                    Tous <span class="gradient-text">mes projets</span>
-                </h2>
-                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
-                    Découvrez l'ensemble de mes réalisations sur l'année (septembre) 2023-2025.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Projet 1 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/projectun.png" alt="Projet Bloc7">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet Bloc7</h3>
-                        <p class="text-gray-500 mb-4">
-                            Un site web captivant sur le thème de l'écologie. Ce projet m'a permis de maîtriser HTML et CSS dans un cadre créatif, avec un suivi personnalisé par Mr Espagelière.
-                        </p>
-                        <a href="Projet_1Bloc7/index.html" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">HTML</span>
-                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">CSS</span>
-                        </div>
-                    </div>
-                    
-                </div>
-                <!-- Projet 2 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/projet2responsive.png" alt="Vet_X">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Vet_X</h3>
-                        <p class="text-gray-500 mb-4">
-                            Création d'un site internet responsive avec une attention particulière à l'expérience utilisateur sur tous les appareils. Projet supervisé par Mr Espagelière.
-                        </p>
-                        <a href="Projet2responsive/index.html" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">HTML</span>
-                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">CSS</span>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">Responsive</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 3 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/pordwp.webp" alt="Projet Wordpress">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet Wordpress</h3>
-                        <p class="text-gray-500 mb-4">
-                            WordPress est un CMS open source permettant de créer et gérer facilement des sites web. Il est flexible, personnalisable grâce à des thèmes et plugins, et accessible même sans connaissances en code.
-                        </p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">WordPress</span>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded">CMS</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 4 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/c2.webp" alt="POC de EC2">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">POC de EC2</h3>
-                        <p class="text-gray-500 mb-4">
-                            Application web en PHP permettant d'afficher et de rechercher des albums de la collection Blake et Mortimer. Utilisation d'un tableau de données pour la gestion des albums.
-                        </p>
-                        <a href="POC_de_EC2/index.php" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">PHP</span>
-                            <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs font-medium rounded">Bootstrap</span>
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">HTML/CSS</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 5 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/mathindex.webp" alt="MATHX_Index">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">MATHX_Index</h3>
-                        <p class="text-gray-500 mb-4">
-                            Développement d'une bibliothèque en ligne dédiée aux mathématiques, pour enseignants et élèves. Projet encadré par Mr Idasiak et Mr Martins Jacquelot.
-                        </p>
-                        <a href="https://github.com/Orgalord-Darkness/Math_Index_Groupe4" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir sur github
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">PHP</span>
-                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">Node.js</span>
-                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">HTML&CSS</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 6 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/tachemmdwp.webp" alt="Gestion de Tache">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Gestion de Tache</h3>
-                        <p class="text-gray-500 mb-4">
-                            Plateforme web pour créer et gérer des réunions avec suivi des tâches. Développé avec PHP, MySQL et Bootstrap pour faciliter l’organisation en équipe.
-                        </p>
-                        <a href="Projet_Mdw_Taches/index.php" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">PHP</span>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded">MySQL</span>
-                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">Bootstrap</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 7 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/wpversion.webp" alt="WP version checker">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">WP version checker</h3>
-                        <p class="text-gray-500 mb-4">
-                            Application web en PHP pour analyser la version WordPress d’un site, lister les plugins, comparer la version et donner un score de sécurité avec recommandations.
-                        </p>
-                        <a href="stage mozartsduweb/index.php" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">PHP</span>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded">WordPress</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 8 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/Pjocsharp.webp" alt="Projet Csharp BTS2">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet Csharp BTS2</h3>
-                        <p class="text-gray-500 mb-4">
-                            Gestion de théâtre réalisé en C# par Noah, Milan et Emmanuel. Projet de 2ème année BTS SIO au Lycée Saint-Vincent de Senlis, méthode AGILE.
-                        </p>
-                        <a href="https://github.com/MilanSY/Projet_GestionTheatre" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir sur GitHub
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">C#</span>
-                            <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs font-medium rounded">Metode AGILE</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Projet 9 -->
-                <div class="project-card bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-                    <div class="gradient-border">
-                        <img class="w-full h-48 object-cover" src="photos_projet/projetcongefacilewebp.webp" alt="Projet Congé Facile">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Projet Congé Facile</h3>
-                        <p class="text-gray-500 mb-4">
-                            Développement d'un site en ligne dédié à la gestion des congés en entreprise, facilitant les demandes des employés. Projet encadré par Mr Martins Jacquelot, compétences sur Symfony.
-                        </p>
-                        <a href="https://github.com/Fnafgameur/CongeFacile" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium">
-                            Voir plus
-                            <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">Symfony</span>
-                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded">Tailwind</span>
-                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded">Twig</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-12 text-center">
-                <a href="index.html#projects"
-                    class="inline-flex items-center gradient-bg px-6 py-3 rounded-md text-white font-medium hover:shadow-lg transition duration-300">
-                    <i class="fas fa-arrow-left mr-2"></i>
-                    Retour à la sélection principale
-                </a>
-            </div>
+  <!-- Custom Cursor -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-dot" aria-hidden="true"></div>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  NAVIGATION                                          ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <nav id="main-nav" role="navigation" aria-label="Navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">Rogue Emmanuel</a>
+      <div class="nav-right">
+        <!-- Theme toggle -->
+        <div class="theme-toggle" role="group" aria-label="Thème">
+          <button class="toggle-btn active" id="btn-light" aria-label="Mode clair" title="Mode clair">
+            <i class="fas fa-sun"></i>
+          </button>
+          <button class="toggle-btn" id="btn-dark" aria-label="Mode sombre" title="Mode sombre">
+            <i class="fas fa-moon"></i>
+          </button>
         </div>
+        <a href="index.html#projects" class="nav-back" aria-label="Retour au portfolio">
+          <i class="fas fa-arrow-left"></i>
+          <span class="hidden sm:inline">Retour</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  PAGE HEADER                                         ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <header class="page-header" role="banner">
+    <div class="hero-orb orb-1" aria-hidden="true"></div>
+    <div class="hero-orb orb-2" aria-hidden="true"></div>
+    <div class="page-header-inner">
+      <div class="section-badge reveal"><i class="fas fa-folder-open"></i> Portfolio complet</div>
+      <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.04em;color:var(--text-primary);margin-bottom:.75rem" class="reveal reveal-delay-1">
+        Tous mes <span class="gradient-text">projets</span>
+      </h1>
+      <p style="font-size:1rem;color:var(--text-secondary);line-height:1.7;max-width:480px;margin:0 auto" class="reveal reveal-delay-2">
+        L'ensemble de mes réalisations de septembre 2023 à 2025 — développement web &amp; cybersécurité.
+      </p>
+    </div>
+  </header>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  FILTER BAR + STATS                                  ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <div class="stats-bar reveal" aria-live="polite" aria-atomic="true">
+    <span class="stats-bar-item"><strong id="visible-count">9</strong> projets</span>
+    <span class="stats-bar-item"><strong>2023–2025</strong></span>
+  </div>
+
+  <div class="filter-bar reveal reveal-delay-1" role="group" aria-label="Filtres par technologie">
+    <button class="filter-btn active" data-filter="all">Tous</button>
+    <button class="filter-btn" data-filter="html-css">HTML/CSS</button>
+    <button class="filter-btn" data-filter="php">PHP</button>
+    <button class="filter-btn" data-filter="js">JavaScript</button>
+    <button class="filter-btn" data-filter="symfony">Symfony</button>
+    <button class="filter-btn" data-filter="csharp">C#</button>
+    <button class="filter-btn" data-filter="wordpress">WordPress</button>
+  </div>
+
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  PROJECTS GRID                                       ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <main>
+    <section aria-label="Liste de tous les projets">
+      <div class="section-inner">
+        <div class="projects-grid" id="projects-grid">
+
+          <!-- ── Projet 1 — Bloc7 ── -->
+          <article class="project-card reveal reveal-delay-1" data-tilt data-tags="html-css"
+                   aria-label="Projet Bloc7">
+            <div class="card-img-wrap">
+              <img src="photos_projet/projectun.png" alt="Aperçu du projet Bloc7" loading="lazy" />
+              <span class="card-badge">HTML/CSS</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Projet Bloc7</h2>
+              <p class="card-desc">
+                Site web sur le thème de l'écologie. Premier projet permettant de maîtriser HTML et CSS dans un cadre créatif, avec suivi par Mr Espagelière.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-orange">HTML</span>
+                <span class="tag tag-blue">CSS</span>
+              </div>
+              <a href="Projet_1Bloc7/index.html" class="card-link" aria-label="Voir le projet Bloc7">
+                Voir le projet <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 2 — Vet_X ── -->
+          <article class="project-card reveal reveal-delay-2" data-tilt data-tags="html-css"
+                   aria-label="Projet Vet_X">
+            <div class="card-img-wrap">
+              <img src="photos_projet/projet2responsive.png" alt="Aperçu du projet Vet_X" loading="lazy" />
+              <span class="card-badge">Responsive</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Vet_X</h2>
+              <p class="card-desc">
+                Site internet responsive avec attention particulière à l'UX sur tous les appareils. Supervisé par Mr Espagelière.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-orange">HTML</span>
+                <span class="tag tag-blue">CSS</span>
+                <span class="tag tag-green">Responsive</span>
+              </div>
+              <a href="Projet2responsive/index.html" class="card-link" aria-label="Voir le projet Vet_X">
+                Voir le projet <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 3 — WordPress ── -->
+          <article class="project-card reveal reveal-delay-3" data-tilt data-tags="wordpress"
+                   aria-label="Projet WordPress">
+            <div class="card-img-wrap">
+              <img src="photos_projet/pordwp.webp" alt="Aperçu du projet WordPress" loading="lazy" />
+              <span class="card-badge">CMS</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Projet WordPress</h2>
+              <p class="card-desc">
+                Création et personnalisation d'un site WordPress. Prise en main du CMS, thèmes et plugins pour un site dynamique sans code lourd.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-blue">WordPress</span>
+                <span class="tag tag-purple">CMS</span>
+              </div>
+              <!-- Pas de lien externe → pas de target blank -->
+            </div>
+          </article>
+
+          <!-- ── Projet 4 — POC EC2 ── -->
+          <article class="project-card reveal reveal-delay-1" data-tilt data-tags="php"
+                   aria-label="POC de EC2 — Blake et Mortimer">
+            <div class="card-img-wrap">
+              <img src="photos_projet/c2.webp" alt="Aperçu du POC EC2 Blake et Mortimer" loading="lazy" />
+              <span class="card-badge">PHP</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">POC de EC2</h2>
+              <p class="card-desc">
+                Application PHP affichant et permettant de rechercher des albums Blake et Mortimer. Utilisation d'un tableau de données structuré.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-blue">PHP</span>
+                <span class="tag tag-gray">Bootstrap</span>
+                <span class="tag tag-orange">HTML/CSS</span>
+              </div>
+              <a href="POC_de_EC2/index.php" class="card-link" aria-label="Voir le POC EC2">
+                Voir le projet <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 5 — MathIndex ── -->
+          <article class="project-card reveal reveal-delay-2" data-tilt data-tags="php js"
+                   aria-label="Projet MATHX_Index">
+            <div class="card-img-wrap">
+              <img src="photos_projet/mathindex.webp" alt="Aperçu de MATHX_Index" loading="lazy" />
+              <span class="card-badge">Groupe</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">MATHX_Index</h2>
+              <p class="card-desc">
+                Bibliothèque en ligne dédiée aux mathématiques pour enseignants et élèves. Encadré par Mr Idasiak &amp; Mr Martins Jacquelot.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-blue">PHP</span>
+                <span class="tag tag-green">Node.js</span>
+                <span class="tag tag-purple">HTML/CSS</span>
+              </div>
+              <a href="https://github.com/Orgalord-Darkness/Math_Index_Groupe4"
+                 class="card-link" target="_blank" rel="noopener noreferrer"
+                 aria-label="Voir MATHX_Index sur GitHub">
+                GitHub <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 6 — Gestion de Tâches ── -->
+          <article class="project-card reveal reveal-delay-3" data-tilt data-tags="php"
+                   aria-label="Projet Gestion de Tâches">
+            <div class="card-img-wrap">
+              <img src="photos_projet/tachemmdwp.webp" alt="Aperçu de la Gestion de Tâches" loading="lazy" />
+              <span class="card-badge">PHP</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Gestion de Tâches</h2>
+              <p class="card-desc">
+                Plateforme web pour créer et gérer des réunions avec suivi des tâches. Développé avec PHP, MySQL et Bootstrap.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-blue">PHP</span>
+                <span class="tag tag-yellow">MySQL</span>
+                <span class="tag tag-gray">Bootstrap</span>
+              </div>
+              <a href="Projet_Mdw_Taches/index.php" class="card-link" aria-label="Voir le projet Gestion de Tâches">
+                Voir le projet <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 7 — WP Version Checker ── -->
+          <article class="project-card reveal reveal-delay-1" data-tilt data-tags="php wordpress"
+                   aria-label="WP Version Checker">
+            <div class="card-img-wrap">
+              <img src="photos_projet/wpversion.webp" alt="Aperçu du WP Version Checker" loading="lazy" />
+              <span class="card-badge">Sécurité</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">WP Version Checker</h2>
+              <p class="card-desc">
+                Application PHP analysant la version WordPress d'un site, listant les plugins, comparant les versions et calculant un score de sécurité avec recommandations.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-blue">PHP</span>
+                <span class="tag tag-blue">WordPress</span>
+                <span class="tag tag-red">Sécurité</span>
+              </div>
+              <a href="stage mozartsduweb/index.php" class="card-link" aria-label="Voir WP Version Checker">
+                Voir le projet <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 8 — C# Théâtre ── -->
+          <article class="project-card reveal reveal-delay-2" data-tilt data-tags="csharp"
+                   aria-label="Projet C# Gestion de Théâtre">
+            <div class="card-img-wrap">
+              <img src="photos_projet/Pjocsharp.webp" alt="Aperçu du projet C# Théâtre" loading="lazy" />
+              <span class="card-badge">C# · AGILE</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Gestion de Théâtre</h2>
+              <p class="card-desc">
+                Gestion de réservations de places de théâtre en C# par Noah, Milan et Emmanuel. Méthode AGILE — BTS SIO, Lycée Saint-Vincent de Senlis.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-purple">C#</span>
+                <span class="tag tag-gray">AGILE</span>
+              </div>
+              <a href="https://github.com/MilanSY/Projet_GestionTheatre"
+                 class="card-link" target="_blank" rel="noopener noreferrer"
+                 aria-label="Voir la Gestion de Théâtre sur GitHub">
+                GitHub <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- ── Projet 9 — Congé Facile ── -->
+          <article class="project-card reveal reveal-delay-3" data-tilt data-tags="symfony"
+                   aria-label="Projet Congé Facile">
+            <div class="card-img-wrap">
+              <img src="photos_projet/projetcongefacilewebp.webp" alt="Aperçu du projet Congé Facile" loading="lazy" />
+              <span class="card-badge">Symfony</span>
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Congé Facile</h2>
+              <p class="card-desc">
+                Gestion des congés en entreprise avec Symfony, Tailwind CSS et Twig. Développé en groupe sous la direction de Mr Martins Jacquelot.
+              </p>
+              <div class="card-tags">
+                <span class="tag tag-blue">Symfony</span>
+                <span class="tag tag-cyan">Tailwind</span>
+                <span class="tag tag-red">Twig</span>
+              </div>
+              <a href="https://github.com/Fnafgameur/CongeFacile"
+                 class="card-link" target="_blank" rel="noopener noreferrer"
+                 aria-label="Voir Congé Facile sur GitHub">
+                GitHub <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </article>
+
+          <!-- Empty state -->
+          <div id="empty-state" aria-live="polite">
+            <div class="empty-icon"><i class="fas fa-search"></i></div>
+            <p style="font-size:1.1rem;font-weight:600;color:var(--text-primary)">Aucun projet trouvé</p>
+            <p style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem">Essayez un autre filtre.</p>
+          </div>
+        </div>
+
+        <div style="text-align:center;margin-top:3rem" class="reveal">
+          <a href="index.html#projects" class="btn-secondary" aria-label="Retour à la sélection principale">
+            <i class="fas fa-arrow-left"></i>
+            Retour à la sélection
+          </a>
+        </div>
+      </div>
     </section>
-    <footer class="bg-gray-900 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            &copy; 2025 Emmanuel Rogue. Tous droits réservés.
-        </div>
-    </footer>
+  </main>
 
-    <script>
-        // Dark mode toggle
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  FOOTER                                              ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <footer role="contentinfo">
+    <p class="footer-copy">&copy; 2025 Emmanuel Rogue — Tous droits réservés.</p>
+  </footer>
 
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-            htmlElement.classList.add('dark-mode');
-            themeToggle.checked = true;
-        }
+  <!-- Back to Top -->
+  <button id="back-to-top" aria-label="Retour en haut de page">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-        // Theme toggle event listener
-        themeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                htmlElement.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                htmlElement.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
+  <!-- ╔══════════════════════════════════════════════════════╗
+       ║  JAVASCRIPT                                          ║
+       ╚══════════════════════════════════════════════════════╝ -->
+  <script>
+    'use strict';
+
+    /* ─── Scroll Progress ─── */
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+    }, { passive: true });
+
+    /* ─── Custom Cursor ─── */
+    if (window.matchMedia('(pointer: fine)').matches) {
+      const cursor    = document.getElementById('cursor');
+      const cursorDot = document.getElementById('cursor-dot');
+      let mouseX = -100, mouseY = -100, curX = -100, curY = -100;
+
+      document.addEventListener('mousemove', e => {
+        mouseX = e.clientX; mouseY = e.clientY;
+        cursorDot.style.left = mouseX + 'px';
+        cursorDot.style.top  = mouseY + 'px';
+      });
+
+      (function animateCursor() {
+        curX += (mouseX - curX) * 0.15;
+        curY += (mouseY - curY) * 0.15;
+        cursor.style.left = curX + 'px';
+        cursor.style.top  = curY + 'px';
+        requestAnimationFrame(animateCursor);
+      })();
+
+      document.querySelectorAll('a, button, [data-tilt]').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      });
+    }
+
+    /* ─── Scroll Reveal ─── */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('revealed'); revealObs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ─── 3D Tilt ─── */
+    document.querySelectorAll('[data-tilt]').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r  = card.getBoundingClientRect();
+        const dx = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
+        const dy = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
+        card.style.transform = `perspective(800px) rotateX(${-dy * 5}deg) rotateY(${dx * 5}deg) scale(1.02)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
+        card.style.transform  = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+        setTimeout(() => { card.style.transition = ''; }, 400);
+      });
+    });
+
+    /* ─── Theme Toggle ─── */
+    const html      = document.documentElement;
+    const btnLight  = document.getElementById('btn-light');
+    const btnDark   = document.getElementById('btn-dark');
+
+    function setTheme(dark) {
+      html.classList.toggle('dark', dark);
+      btnDark.classList.toggle('active',  dark);
+      btnLight.classList.toggle('active', !dark);
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    setTheme(localStorage.getItem('theme') === 'dark');
+    btnDark.addEventListener('click',  () => setTheme(true));
+    btnLight.addEventListener('click', () => setTheme(false));
+
+    /* ─── Back to Top ─── */
+    const btt = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => btt.classList.toggle('visible', window.scrollY > 400), { passive: true });
+    btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ─── Filter System ─────────────────────────────────────
+       Filtre les cartes selon le tag data-filter sélectionné.
+       Sécurité : on compare uniquement des valeurs whitelistées.
+    ─────────────────────────────────────────────────────── */
+    const ALLOWED_FILTERS = new Set(['all', 'html-css', 'php', 'js', 'symfony', 'csharp', 'wordpress']);
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards      = document.querySelectorAll('.project-card[data-tags]');
+    const emptyState = document.getElementById('empty-state');
+    const countEl    = document.getElementById('visible-count');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const raw    = btn.dataset.filter || 'all';
+        // Whitelist validation — jamais faire confiance aux data-attributes sans contrôle
+        const filter = ALLOWED_FILTERS.has(raw) ? raw : 'all';
+
+        // Mise à jour des boutons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Filtrage des cartes
+        let visible = 0;
+        cards.forEach(card => {
+          const tags = (card.dataset.tags || '').split(' ');
+          const show = filter === 'all' || tags.includes(filter);
+          card.classList.toggle('hidden-card', !show);
+          if (show) visible++;
         });
-    </script>
+
+        // Empty state
+        emptyState.classList.toggle('show', visible === 0);
+        // Mise à jour du compteur
+        countEl.textContent = String(visible);
+      });
+    });
+  </script>
 </body>
 </html>
