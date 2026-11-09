@@ -1,0 +1,59 @@
+/* Cyber additions use the portfolio's existing palette and card styles. */
+.cyber-section-heading { text-align: center; max-width: 720px; margin: 0 auto 2.5rem; }
+.cyber-section-heading .section-subtitle { margin: .75rem auto 0; }
+.cyber-section-links { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin: 1.5rem auto 2rem; padding: 0 1rem; }
+.cyber-section-links a { color: var(--accent-1); background: var(--bg-surface); border: 1px solid var(--border); padding: .7rem 1rem; border-radius: 999px; text-decoration: none; font-size: .85rem; font-weight: 600; }
+.cyber-section-links a:hover, .cyber-section-links a[aria-current] { border-color: var(--accent-1); background: var(--bg-muted); }
+#cyber-projects, #cyber-journey { background: var(--bg-base); }
+#cyber-certifications { background: var(--bg-surface); }
+.cyber-card-visual { position: relative; display: flex; min-height: 180px; align-items: center; justify-content: center; overflow: hidden; color: var(--accent-1); background: linear-gradient(135deg, rgba(59,91,219,.12), rgba(14,165,233,.08)), var(--bg-muted); border-bottom: 1px solid var(--border); }
+.cyber-card-visual::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 28px 28px; opacity: .35; mask-image: linear-gradient(120deg, black, transparent); }
+.cyber-card-visual i { font-size: 2.5rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: 22px; width: 86px; height: 86px; display: flex; align-items: center; justify-content: center; z-index: 1; }
+.cyber-visual-label, .cyber-visual-code { position: absolute; font-family: var(--font-mono); font-size: .7rem; font-weight: 600; }
+.cyber-visual-label { top: 1rem; left: 1.25rem; text-transform: uppercase; letter-spacing: .08em; }
+.cyber-visual-code { bottom: .8rem; right: 1.25rem; color: var(--text-secondary); }
+.cyber-eyebrow { font-family: var(--font-mono); font-size: .72rem; line-height: 1.7; color: var(--accent-1); margin-bottom: .6rem; }
+.cyber-cta { text-align: center; margin-top: 2.5rem; }
+.cyber-cert-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.cyber-platform-links { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1rem; }
+.cyber-note { color: var(--text-secondary); font-size: .82rem; line-height: 1.8; margin-top: 1.5rem; }
+.cyber-timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; border: 1px solid var(--border); border-radius: 20px; background: var(--bg-surface); padding: 1.75rem; }
+.cyber-timeline > div { border-left: 3px solid var(--accent-1); padding-left: 1rem; }
+.cyber-timeline h3 { font-size: 1rem; margin: .5rem 0; }
+.cyber-timeline p { font-size: .85rem; line-height: 1.7; color: var(--text-secondary); }
+.cyber-skills-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+.cyber-skills-grid .skill-card { min-width: 0; }
+.cyber-skill-status { font-family: var(--font-mono); color: var(--accent-1); font-size: .68rem; line-height: 1.7; margin-top: 1rem; padding-top: .75rem; border-top: 1px solid var(--border); }
+.cyber-curriculum { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1.25rem; margin-top: 2rem; }
+.cyber-modules { border: 1px solid var(--border); border-radius: 16px; background: var(--bg-surface); padding: 1.25rem; }
+.cyber-modules summary { cursor: pointer; font-size: .9rem; font-weight: 600; line-height: 1.7; color: var(--text-primary); }
+.cyber-modules dl { margin-top: 1rem; }
+.cyber-modules dl > div { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--border); padding: .7rem 0; font-size: .8rem; line-height: 1.7; }
+.cyber-modules dt { color: var(--text-primary); }
+.cyber-modules dd { color: var(--text-secondary); text-align: right; flex-shrink: 0; max-width: 48%; }
+.cyber-detail { padding-top: 1rem; margin-top: 1rem; border-top: 1px solid var(--border); }
+.cyber-detail h3 { font-size: .85rem; margin-bottom: .4rem; }
+.cyber-detail p { color: var(--text-secondary); font-size: .85rem; line-height: 1.8; }
+.project-card[id] { scroll-margin-top: 100px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 4px; }
+@media (min-width: 769px) { #mobile-menu-btn { display: none; } }
+@media (max-width: 1100px) { .cyber-skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } #main-nav .nav-links { gap: .7rem; } }
+@media (max-width: 768px) { .cyber-timeline, .cyber-cert-layout, .cyber-curriculum { grid-template-columns: 1fr; } .cyber-timeline { padding: 1.25rem; } }
+@media (max-width: 480px) { .cyber-skills-grid { grid-template-columns: 1fr; } .cyber-modules dl > div { flex-direction: column; gap: .15rem; } .cyber-modules dd { text-align: left; max-width: none; } .cyber-section-links a { font-size: .75rem; } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+.cyber-symbol { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 22px; width: 86px; height: 86px; display: flex; align-items: center; justify-content: center; z-index: 1; }
+/* Let grid items shrink when the full CV filename is used on small screens. */
+.about-grid > * { min-width: 0; }
+@media (max-width: 480px) { .stat-card { padding: 1rem .4rem; } }
+.cyber-gallery .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 640px) { .cyber-gallery .projects-grid { grid-template-columns: 1fr; } }
+/* Keep cyber labels readable against the existing dark surfaces. */
+html.dark .cyber-eyebrow,
+html.dark .cyber-skill-status,
+html.dark .cyber-card-visual,
+html.dark .cyber-section-links a,
+html.dark .cyber-gallery .stats-bar-item strong { color: #8ca7ff; }
+html.dark #cyber-projects .tag-blue,
+html.dark #cyber-certifications .tag-blue,
+html.dark .cyber-gallery .tag-blue { color: #8ca7ff; }
+.cyber-gallery .project-card:target { border-color: var(--accent-2); }

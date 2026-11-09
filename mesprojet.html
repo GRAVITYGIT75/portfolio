@@ -417,10 +417,10 @@
     <div class="page-header-inner">
       <div class="section-badge reveal"><i class="fas fa-folder-open"></i> Portfolio complet</div>
       <h1 style="font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-0.04em;color:var(--text-primary);margin-bottom:.75rem" class="reveal reveal-delay-1">
-        Tous mes <span class="gradient-text">projets</span>
+        Mes réalisations <span class="gradient-text">dev</span>
       </h1>
       <p style="font-size:1rem;color:var(--text-secondary);line-height:1.7;max-width:480px;margin:0 auto" class="reveal reveal-delay-2">
-        L'ensemble de mes réalisations de septembre 2023 à 2025 — développement web &amp; cybersécurité.
+        Mes réalisations en développement web et logiciel, depuis mon BTS SIO.
       </p>
     </div>
   </header>
@@ -428,6 +428,7 @@
   <!-- ╔══════════════════════════════════════════════════════╗
        ║  FILTER BAR + STATS                                  ║
        ╚══════════════════════════════════════════════════════╝ -->
+  <nav class="filter-bar" aria-label="Domaines du portfolio"><a href="mesprojet.html" class="filter-btn active" aria-current="page">Développement</a><a href="mesprojetscyber.html" class="filter-btn">Cybersécurité →</a></nav>
   <div class="stats-bar reveal" aria-live="polite" aria-atomic="true">
     <span class="stats-bar-item"><strong id="visible-count">9</strong> projets</span>
     <span class="stats-bar-item"><strong>2023–2025</strong></span>
@@ -776,7 +777,7 @@
        Sécurité : on compare uniquement des valeurs whitelistées.
     ─────────────────────────────────────────────────────── */
     const ALLOWED_FILTERS = new Set(['all', 'html-css', 'php', 'js', 'symfony', 'csharp', 'wordpress']);
-    const filterBtns = document.querySelectorAll('.filter-btn');
+    const filterBtns = document.querySelectorAll('button.filter-btn');
     const cards      = document.querySelectorAll('.project-card[data-tags]');
     const emptyState = document.getElementById('empty-state');
     const countEl    = document.getElementById('visible-count');
